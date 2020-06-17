@@ -1,0 +1,48 @@
+.myForm {
+   display: flex;
+   flex-direction: column; 
+   margin-top: 200px;
+   margin: 0px auto 0;
+   padding: 20px;
+   height:500px;
+   border: 1px solid lightgrey;
+  }
+ .newTopicLayout{
+    display: flex;
+    flex-direction: row;
+ }
+ .newTopicListLayout{
+   display: flex;
+   flex-direction: column; 
+  
+ }
+  .interestInput{
+    margin-top: 100px;
+  }
+ .button {
+    margin: 0px auto 0;
+    max-width: 200px;
+    margin-top: 100px;
+ }
+ .topicBody {
+    display: inline-flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: center;
+    
+ }
+ .a {
+    
+    flex: 3;
+ }
+ .topic{
+    margin-left: 100px;
+    padding: 20px 100px;
+    border-radius: 500px;
+    background:rgb(244, 201, 107);
+    font-size: 15px;
+    font-style: inherit;
+    border: none;
+ 
+ } 
+ 
