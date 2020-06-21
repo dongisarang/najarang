@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "user") // 'user' 테이블과 매핑
-public class User {
+public class User extends BaseTime{
     @Id // primaryKey임
     @GeneratedValue(strategy = GenerationType.IDENTITY) //  pk 필드를 auto_increment로 설정
     private long id;
@@ -25,6 +25,4 @@ public class User {
     private String email;
     @Column(name = "platform_type")
     private String platformType;
-    @Column()
-    private LocalDateTime created;
 }
