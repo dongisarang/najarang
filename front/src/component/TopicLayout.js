@@ -24,6 +24,7 @@ const Layout = styled.div`
        
         margin: 0px auto 0;
         display:flex;
+        
         margin-left:50px;
         align-items:center;
         justify-content:center;

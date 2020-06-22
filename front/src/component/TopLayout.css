@@ -13,6 +13,7 @@
  }
  .newTopicListLayout{
    display: flex;
+   flex:3;
    flex-direction: column; 
   
  }

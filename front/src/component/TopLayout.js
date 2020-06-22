@@ -2,16 +2,25 @@ import React from 'react';
 import './TopLayout.css';
 import TopicLayout from './TopicLayout';
 import  NewTopicLayout from './NewTopicLayout';
+import ListPage from './ListPage'
 import styled from 'styled-components';
+import { Link, Route, BrowserRouter as Router } from "react-router-dom"
+// const topicItem =({to})=>{
+//     <Link to={to}>
+//     </Link>
+// }
 const TopLayout=()=>(
+    <Router>
     <div>
     <div className = "myForm">
-        <form className = "interestInput">
-        <input 
-            placeholder="관심있는 내용을 검색하세요!"
-            type = "text"
-            className="form-control"
-        />
+       <InputLayout>
+        <input placeholder="관심있는 내용을 검색하세요!"
+                type = "text"
+                className="form-control">
+                
+        </input>
+       </InputLayout>
+            
 
     <div className="button">
             <Btn>
@@ -25,7 +34,8 @@ const TopLayout=()=>(
     </div>
     <TopicCircleLayout>
         <TopicCircle>
-                토픽
+            <Link to="list"> 토픽 </Link>
+                
         </TopicCircle>
         <TopicCircle>
                 토픽
@@ -40,7 +50,7 @@ const TopLayout=()=>(
                 토픽
         </TopicCircle>
     </TopicCircleLayout>
-    </form>
+    
     </div>
     <div className = "myForm">
         <div>
@@ -81,7 +91,9 @@ const TopLayout=()=>(
              
     </div>
 </div>
-    
+
+<Route path='/list' component={ListPage} exact={true}/> 
+</Router>  
     
 )
 const Btn = styled.button`
@@ -89,6 +101,24 @@ const Btn = styled.button`
     border-radius:18px;
     padding:15px;
     color:#ffffff;
+
+`;
+const InputLayout = styled.div`
+    justify-content: center;
+    border-width:2;
+    height:100px;
+ 
+    input{
+        width:100%;
+        border-radius:10px;
+        height:30px;
+    }
+`;
+const InputForm = styled.input`
+    
+    width:100%;
+    align-item:center;
+    height:30px;
 
 `;
 const TopicCircle = styled.button`
