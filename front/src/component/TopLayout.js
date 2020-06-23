@@ -10,7 +10,7 @@ import { Link, Route, BrowserRouter as Router } from "react-router-dom"
 //     </Link>
 // }
 const TopLayout=()=>(
-    <Router>
+    
     <div>
     <div className = "myForm">
        <InputLayout>
@@ -33,10 +33,12 @@ const TopLayout=()=>(
         </p>
     </div>
     <TopicCircleLayout>
-        <TopicCircle>
-            <Link to="list"> 토픽 </Link>
+        
+            <Link to="/list">
+                <TopicCircle>토픽</TopicCircle>
+            </Link>
                 
-        </TopicCircle>
+        
         <TopicCircle>
                 토픽
         </TopicCircle>
@@ -92,8 +94,8 @@ const TopLayout=()=>(
     </div>
 </div>
 
-<Route path='/list' component={ListPage} exact={true}/> 
-</Router>  
+ 
+  
     
 )
 const Btn = styled.button`

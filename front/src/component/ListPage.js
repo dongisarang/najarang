@@ -5,7 +5,7 @@ import ListHeader from './ListHeader';
 const ListPage = () =>{
     return(
         <div>
-            아아아
+            외않되
         </div>
     )
 }

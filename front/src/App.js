@@ -2,6 +2,7 @@ import React, {  Component } from 'react';
 import TopLayout from './component/TopLayout';
 import KakaoSignUp from './component/KakaoSignUp'
 import NaverLogin from 'react-naver-login';
+import ListPage from './component/ListPage';
 import styled from 'styled-components';
 import { Link, Route, BrowserRouter as Router } from "react-router-dom"
 
@@ -33,6 +34,7 @@ class App extends Component {
         <hr />
         <Route path='/' component={TopLayout} exact={true}/>
         <Route path='/login' component={KakaoSignUp} exact={true}/>
+        <Route path='/list' render={props => {return(<ListPage />)}} exact={true}/>
       </div>
       </Router>
       
