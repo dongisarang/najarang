@@ -1,5 +1,6 @@
 package com.najarang.back.controller.v1;
 
+import com.najarang.back.advice.exception.CUserNotFoundException;
 import com.najarang.back.entity.User;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.model.response.ListResult;
@@ -31,7 +32,7 @@ public class UserController {
     @ApiOperation(value = "회원 단건 조회", notes = "회원번호로 회원을 조회한다")
     @GetMapping(value = "/user/{id}")
     public SingleResult<User> findUserById(@ApiParam(value = "회원번호", required = true) @PathVariable long id) {
-        return responseService.getSingleResult(userJpaRepo.findById(id).orElse(null));
+        return responseService.getSingleResult(userJpaRepo.findById(id).orElseThrow(CUserNotFoundException::new));
     }
 
     @ApiOperation(value = "회원 등록", notes = "회원을 등록한다")
@@ -44,7 +45,8 @@ public class UserController {
     @PutMapping(value = "/user")
     public SingleResult<User> modify(@ApiParam(name = "user", value = "회원정보", required = true) @RequestBody User user) {
         long userId = user.getId();
-        User newUser = userJpaRepo.getOne(userId);
+        // 회원 없으면 예외처리
+        User newUser = userJpaRepo.findById(userId).orElseThrow(CUserNotFoundException::new);
         newUser.setNickname(user.getNickname());
         newUser.setInterestedTopic(user.getInterestedTopic());
         return responseService.getSingleResult(userJpaRepo.save(newUser));

@@ -12,7 +12,7 @@ public class ResponseService {
 
     public enum CommonResponse {
         SUCCESS(0, "success"),
-        FAIL(-1, "fail`");
+        FAIL(-1, "fail");
         int code;
         String msg;
         CommonResponse(int code, String msg) {
@@ -42,12 +42,14 @@ public class ResponseService {
         setSuccessResult(result);
         return result;
     }
+
     // 성공 결과만 처리하는 메소드
     public CommonResult getSuccessResult() {
         CommonResult result = new CommonResult();
         setSuccessResult(result);
         return result;
     }
+
     // 실패 결과만 처리하는 메소드
     public CommonResult getFailResult() {
         CommonResult result = new CommonResult();
@@ -56,6 +58,7 @@ public class ResponseService {
         result.setMsg(CommonResponse.FAIL.getMsg());
         return result;
     }
+
     // 결과 모델에 api 요청 성공 데이터를 세팅해주는 메소드
     private void setSuccessResult(CommonResult result) {
         result.setResult(true);
