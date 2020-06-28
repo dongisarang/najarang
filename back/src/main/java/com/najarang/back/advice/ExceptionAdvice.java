@@ -20,17 +20,17 @@ public class ExceptionAdvice {
 
     private final ResponseService responseService;
 
-//    // Exception이 발생하면 해당 Handler로 처리하겠다고 명시
-//    @ExceptionHandler(Exception.class)
-//    // 해당 Exception이 발생하면 Response에 출력되는 HttpStatus Code가 500으로 내려가도록 설정
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    protected CommonResult defaultException(HttpServletRequest request, Exception e) {
-//        return responseService.getFailResult();
-//    }
+    // Exception이 발생하면 해당 Handler로 처리하겠다고 명시
+    @ExceptionHandler(Exception.class)
+    // 해당 Exception이 발생하면 Response에 출력되는 HttpStatus Code가 500으로 내려가도록 설정
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult defaultException(HttpServletRequest request, Exception e) {
+        return responseService.getFailResult(500, e.getMessage());
+    }
 
     @ExceptionHandler(CUserNotFoundException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     protected CommonResult userNotFoundException(HttpServletRequest request, CUserNotFoundException e) {
-        return responseService.getFailResult();
+        return responseService.getFailResult(404, "this user is not exist");
     }
 }
