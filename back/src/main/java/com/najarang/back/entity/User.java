@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class User extends BaseTime{
     @Id // primaryKey임
     @GeneratedValue(strategy = GenerationType.IDENTITY) //  pk 필드를 auto_increment로 설정
-    private long id;
+    private Long id;
     @Column(name = "interested_topic")
     private String interestedTopic;
     @Column()
