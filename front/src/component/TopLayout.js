@@ -39,18 +39,15 @@ const TopLayout=()=>(
             </Link>
                 
         
-        <TopicCircle>
-                토픽
-        </TopicCircle>
-        <TopicCircle>
-                토픽
-        </TopicCircle>
-        <TopicCircle>
-                토픽
-        </TopicCircle>
-        <TopicCircle>
-                토픽
-        </TopicCircle>
+            <Link to="/list">
+                <TopicCircle>토픽</TopicCircle>
+            </Link>
+            <Link to="/list">
+                <TopicCircle>토픽</TopicCircle>
+            </Link>
+            <Link to="/list">
+                <TopicCircle>토픽</TopicCircle>
+            </Link>
     </TopicCircleLayout>
     
     </div>
