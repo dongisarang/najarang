@@ -121,8 +121,9 @@ const InputForm = styled.input`
 
 `;
 const TopicCircle = styled.button`
-    margin-left: 100px;
+    margin-left:100px;
     flex:1;
+    justify-content:space-between;
     border-radius: 20px;
     background-color:#f4c96b;
     width:100px;

@@ -119,18 +119,18 @@ const MainLayout = styled.div`
         margin:0px 0px 1px 5px;
     }
     h5{
-        display:flex;
         margin:0px 0px 1px 5px;
     }
     .row{
         display:flex;
         flex-direction:row;
-        
         .icon{
-            margin-left: 200px;
+            
+            flex:3;
         }
         .bookMark{
             margin-left:10px;
+            flex:1;
         }
     }
 `;
