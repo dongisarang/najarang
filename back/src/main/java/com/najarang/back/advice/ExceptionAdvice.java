@@ -1,11 +1,13 @@
 package com.najarang.back.advice;
 
+import com.najarang.back.advice.exception.CAuthenticationEntryPointException;
 import com.najarang.back.advice.exception.CEmailSigninFailedException;
 import com.najarang.back.advice.exception.CUserNotFoundException;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.service.ResponseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -39,5 +41,15 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult emailSigninFailed(HttpServletRequest request, CEmailSigninFailedException e) {
         return responseService.getFailResult(403, "Your account does not exist or your email or password is incorrect.");
+    }
+
+    @ExceptionHandler(CAuthenticationEntryPointException.class)
+    public CommonResult authenticationEntryPointException(HttpServletRequest request, CAuthenticationEntryPointException e) {
+        return responseService.getFailResult(403, "You do not have permission to access this resource.");
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public CommonResult AccessDeniedException(HttpServletRequest request, AccessDeniedException e) {
+        return responseService.getFailResult(403, "A resource that can not be accessed with the privileges it has.");
     }
 }
