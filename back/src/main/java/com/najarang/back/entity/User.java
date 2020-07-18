@@ -1,9 +1,11 @@
 package com.najarang.back.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -25,4 +27,6 @@ public class User extends BaseTime{
     private String email;
     @Column(name = "platform_type")
     private String platformType;
+    @Column()
+    private String role;
 }

@@ -7,7 +7,6 @@ import com.najarang.back.model.response.ListResult;
 import com.najarang.back.model.response.SingleResult;
 import com.najarang.back.repo.UserJpaRepo;
 import com.najarang.back.service.ResponseService;
-import com.najarang.back.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
