@@ -9,19 +9,24 @@ import com.najarang.back.repo.UserJpaRepo2;
 import com.najarang.back.service.ResponseService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = {"2. User2"})
+// @PreAuthorize("hasRole('ROLE_USER') and hasRole('ROLE_ADMIN')") == @Secured({"ROLE_USER","ROLE_ADMIN"})
+// @PreAuthorize("hasRole('ROLE_USER')") 로 여기 작성하면 컨트롤러 내부 리소스 동일 권한으로 설정하는 것임
+@Api(tags = {"1. User2"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v2")
+@RequestMapping(value = "/v1")
 public class UserController2 {
 
     private final UserJpaRepo2 userJpaRepo;
     private final ResponseService responseService; // 결과를 처리할 Service
 
+    @Secured("ROLE_USER")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
@@ -32,6 +37,7 @@ public class UserController2 {
         return responseService.getListResult(userJpaRepo.findAll());
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = false, dataType = "String", paramType = "header")
     })
