@@ -18,6 +18,22 @@ public class SwaggerConfiguration {
     private String title;
 
     @Bean
+    public Docket apiHello() {
+        version = "Hello";
+        title = "najarang API " + version;
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .useDefaultResponseMessages(false)
+                .groupName(version)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.najarang.back.controller"))
+                .paths(PathSelectors.ant("/helloworld/**"))
+                .build()
+                .apiInfo(apiInfo(title, version));
+
+    }
+
+    @Bean
     public Docket apiV0() {
         version = "V0";
         title = "najarang API " + version;
