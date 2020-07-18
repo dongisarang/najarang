@@ -7,3 +7,5 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     properties.hibernate.hbm2ddl.auto: none
     showSql: true
+  jwt:
+    secret: najarang@$&
