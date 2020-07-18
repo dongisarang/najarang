@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = {"1. User"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = "/v0")
 public class UserController {
 
     private final UserJpaRepo userJpaRepo;
