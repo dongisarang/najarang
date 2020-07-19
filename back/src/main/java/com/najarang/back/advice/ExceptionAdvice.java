@@ -1,8 +1,6 @@
 package com.najarang.back.advice;
 
-import com.najarang.back.advice.exception.CAuthenticationEntryPointException;
-import com.najarang.back.advice.exception.CEmailSigninFailedException;
-import com.najarang.back.advice.exception.CUserNotFoundException;
+import com.najarang.back.advice.exception.*;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.service.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +49,17 @@ public class ExceptionAdvice {
     @ExceptionHandler(AccessDeniedException.class)
     public CommonResult AccessDeniedException(HttpServletRequest request, AccessDeniedException e) {
         return responseService.getFailResult(403, "A resource that can not be accessed with the privileges it has.");
+    }
+
+    @ExceptionHandler(CCommunicationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CommonResult communicationException(HttpServletRequest request, CCommunicationException e) {
+        return responseService.getFailResult(500, "An error occurred during communication.");
+    }
+
+    @ExceptionHandler(CUserExistException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CommonResult communicationException(HttpServletRequest request, CUserExistException e) {
+        return responseService.getFailResult(403, "You are an existing member.");
     }
 }
