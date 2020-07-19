@@ -35,10 +35,4 @@ public class HelloController {
         hello.message = HELLO;
         return hello;
     }
-
-    @ApiOperation(value = "테스트 컨트롤러", notes = "helloworld page 출력")
-    @GetMapping(value = "/helloworld/page")
-    public String helloworld() {
-        return "helloworld";
-    }
 }
