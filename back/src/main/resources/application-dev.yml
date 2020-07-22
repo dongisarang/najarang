@@ -1,0 +1,23 @@
+#  java -jar -Dspring.profiles.active=dev
+logging:
+  level:
+    root: warn
+    com.najarang.back: info
+  file:
+    max-history: 7 # 최근 로그 파일만 남고 과거 로그는 자동으로 지워짐
+    path: /logs/back/dev
+
+spring:
+  profiles: dev
+    include: devSecret
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties.hibernate:
+      hbm2ddl.auto: none
+      format_sql: true
+    showSql: true
+    generate-ddl: false
+  url:
+    base: https://najarang.ml
