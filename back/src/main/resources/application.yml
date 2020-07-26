@@ -1,21 +1,46 @@
 spring:
+  profiles:
+    active: local
+    include: commonSecret
+  social:
+    kakao:
+      redirect: /v1/social/login/kakao
+      url:
+        login: https://kauth.kakao.com/oauth/authorize
+        token: https://kauth.kakao.com/oauth/token
+        profile: https://kapi.kakao.com/v2/user/me
+
+---
+logging:
+  level:
+    root: warn
+    com.najarang.back: debug
+
+spring:
+  profiles: local
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     driver-class-name: org.h2.Driver
     username: sa
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    properties.hibernate.hbm2ddl.auto: none
+    properties.hibernate:
+      hbm2ddl.auto: update
+      format_sql: true
     showSql: true
-  jwt:
-    secret: najarang@$&
-  social:
-    kakao:
-      client_id:  # 앱생성시 받은 REST API 키
-      redirect: /v1/social/login/kakao
-      url:
-        login: https://kauth.kakao.com/oauth/authorize
-        token: https://kauth.kakao.com/oauth/token
-        profile: https://kapi.kakao.com/v2/user/me
+    generate-ddl: true
   url:
     base: http://localhost:8080
+---
+spring:
+  profiles: dev
+  profiles.include: devSecret
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties.hibernate:
+      hbm2ddl.auto: none
+      format_sql: true
+    showSql: true
+    generate-ddl: false
+  url:
+    base: https://najarnag.ml
