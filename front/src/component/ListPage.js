@@ -7,6 +7,7 @@ import { FaRegThumbsUp } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
 const ListPage = ({category}) =>{
+    //토픽에 애초에 본인이 선택한 토픽만 나오도록 해야함
     const list = ['취미','소확행','월급루팡','합격'];
     return(
         <ListLayout>
