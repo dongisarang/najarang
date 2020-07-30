@@ -18,6 +18,11 @@ class KakaoSignUp extends Component {
             id:res.profile.id,
             provider:'kakao'
         })
+        res.provider = 'kakao'
+        fetch('http://localhost:3000/oauth')
+        .then(function(response) {
+        return response.json();
+        })
         console.log('data: ',res);
     }
 
@@ -26,6 +31,12 @@ class KakaoSignUp extends Component {
     }
     responseGoogle = (response) => {
         console.log(response);
+        response.provider = 'google'
+        fetch('http://localhost:3000/oauth')
+        .then(function(response) {
+        return response.json();
+        })
+        //여기서 access_token=XX&provider=kakao 이런식으로 처리해서 서버로 보내주기
       }
     render() {
         return (
