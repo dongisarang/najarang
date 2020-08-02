@@ -3,6 +3,7 @@ import TopLayout from './component/TopLayout';
 import LoginPage from './component/LoginPage'
 import NaverLogin from 'react-naver-login';
 import ListPage from './component/ListPage';
+import ListRead from './component/ListRead';
 import styled from 'styled-components';
 import SignUpPage from './component/SignUpPage'
 import { Link, Route, BrowserRouter as Router } from "react-router-dom"
@@ -43,6 +44,7 @@ class App extends Component {
         <Route path='/login' component={LoginPage} exact={true}/>
         <Route path='/list' render={props => {return(<ListPage />)}} exact={true}/>
         <Route path='/signup' component={SignUpPage} exact={true}/>
+        <Route path='/listRead' render={props => {return(<ListRead />)}} exact={true}/>
       </div>
       </Router>
       

@@ -20,7 +20,8 @@ const ListPage = ({category}) =>{
             
             </CategoryLayout>
             <ListViewLayout>
-                <MainLayout>
+            <Link to="/listRead">
+            <MainLayout>
                     <p>카테고리</p>
                     <h2>제목</h2>
                     <h4>내용</h4>
@@ -36,6 +37,7 @@ const ListPage = ({category}) =>{
                     <BsBookmark className="bookMark"></BsBookmark>
                     </div>
                 </MainLayout>
+            </Link>
                 <MainLayout>
                     <p>카테고리</p>
                     <h2>제목</h2>
