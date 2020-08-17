@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-
+import { Provider } from "mobx-react";
+import YourStore from "./stores/YourStore";
+import TopicList from "./stores/TopicList";
+const yourstore = new YourStore();
+const topic = new TopicList();
+//<React.StrictMode> document.getElementById('root')
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider yourstore={yourstore} topic = {topic}>
     <App />
-  </React.StrictMode>,
+  </Provider>
+  ,
   document.getElementById('root')
 );
 
