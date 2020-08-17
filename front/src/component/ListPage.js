@@ -6,91 +6,99 @@ import { FaEye } from "react-icons/fa";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
-const ListPage = ({category}) =>{
+import { observer, inject } from "mobx-react";
+@inject("topic")
+class ListPage extends Component{
+    constructor(props) {
+        super(props);
+    };
     //토픽에 애초에 본인이 선택한 토픽만 나오도록 해야함
-    const list = ['취미','소확행','월급루팡','합격'];
-    return(
-        <ListLayout>
-            <CategoryLayout>
-                {
-                    list.map(item =>(
-                        <p>{item}</p>
-                    ))
-                }
-            
-            </CategoryLayout>
-            <ListViewLayout>
-            <Link to="/listRead">
-            <MainLayout>
-                    <p>카테고리</p>
-                    <h2>제목</h2>
-                    <h4>내용</h4>
-                    <h5>글쓴이</h5>
-                    <div className="row">
-                    <FaEye></FaEye>
-                    <h5>175</h5>
-                    <FaRegThumbsUp></FaRegThumbsUp>
-                    <h5>1</h5>
-                    <BsChatDots></BsChatDots>
-                    <h5>2</h5>
-                    <h5 className = "icon">2시간</h5>
-                    <BsBookmark className="bookMark"></BsBookmark>
-                    </div>
-                </MainLayout>
-            </Link>
+    render(){
+        let list = [...this.props.topic.topic];
+        return(
+            <ListLayout>
+                <CategoryLayout>
+                    {
+                        list.map(item =>(
+                            <p>{item}</p>
+                        ))
+                    }
+                
+                </CategoryLayout>
+                <ListViewLayout>
+                <Link to="/listRead">
                 <MainLayout>
-                    <p>카테고리</p>
-                    <h2>제목</h2>
-                    <h4>내용</h4>
-                    <h5>글쓴이</h5>
-                    <div className="row">
-                    <FaEye></FaEye>
-                    <h5>175</h5>
-                    <FaRegThumbsUp></FaRegThumbsUp>
-                    <h5>1</h5>
-                    <BsChatDots></BsChatDots>
-                    <h5>2</h5>
-                    <h5 className = "icon">2시간</h5>
-                    <BsBookmark className="bookMark"></BsBookmark>
-                    </div>
-                </MainLayout>
-            </ListViewLayout>
-            <ListViewLayout>
-                <MainLayout>
-                    <p>카테고리</p>
-                    <h2>제목</h2>
-                    <h4>내용</h4>
-                    <h5>글쓴이</h5>
-                    <div className="row">
-                    <FaEye></FaEye>
-                    <h5>175</h5>
-                    <FaRegThumbsUp></FaRegThumbsUp>
-                    <h5>1</h5>
-                    <BsChatDots></BsChatDots>
-                    <h5>2</h5>
-                    <h5 className = "icon">2시간</h5>
-                    <BsBookmark className="bookMark"></BsBookmark>
-                    </div>
-                </MainLayout>
-                <MainLayout>
-                    <p>카테고리</p>
-                    <h2>제목</h2>
-                    <h4>내용</h4>
-                    <h5>글쓴이</h5>
-                    <div className="row">
-                    <FaEye></FaEye>
-                    <h5>175</h5>
-                    <FaRegThumbsUp></FaRegThumbsUp>
-                    <h5>1</h5>
-                    <BsChatDots></BsChatDots>
-                    <h5>2</h5>
-                    <h5 className = "icon">2시간</h5>
-                    <BsBookmark className="bookMark"></BsBookmark>
-                    </div>
-                </MainLayout>
-            </ListViewLayout>
-        </ListLayout>
-    )
+                        <p>카테고리</p>
+                        <h2>제목</h2>
+                        <h4>내용</h4>
+                        <h5>글쓴이</h5>
+                        <div className="row">
+                        <FaEye></FaEye>
+                        <h5>175</h5>
+                        <FaRegThumbsUp></FaRegThumbsUp>
+                        <h5>1</h5>
+                        <BsChatDots></BsChatDots>
+                        <h5>2</h5>
+                        <h5 className = "icon">2시간</h5>
+                        <BsBookmark className="bookMark"></BsBookmark>
+                        </div>
+                    </MainLayout>
+                </Link>
+                    <MainLayout>
+                        <p>카테고리</p>
+                        <h2>제목</h2>
+                        <h4>내용</h4>
+                        <h5>글쓴이</h5>
+                        <div className="row">
+                        <FaEye></FaEye>
+                        <h5>175</h5>
+                        <FaRegThumbsUp></FaRegThumbsUp>
+                        <h5>1</h5>
+                        <BsChatDots></BsChatDots>
+                        <h5>2</h5>
+                        <h5 className = "icon">2시간</h5>
+                        <BsBookmark className="bookMark"></BsBookmark>
+                        </div>
+                    </MainLayout>
+                </ListViewLayout>
+                <ListViewLayout>
+                    <MainLayout>
+                        <p>카테고리</p>
+                        <h2>제목</h2>
+                        <h4>내용</h4>
+                        <h5>글쓴이</h5>
+                        <div className="row">
+                        <FaEye></FaEye>
+                        <h5>175</h5>
+                        <FaRegThumbsUp></FaRegThumbsUp>
+                        <h5>1</h5>
+                        <BsChatDots></BsChatDots>
+                        <h5>2</h5>
+                        <h5 className = "icon">2시간</h5>
+                        <BsBookmark className="bookMark"></BsBookmark>
+                        </div>
+                    </MainLayout>
+                    <MainLayout>
+                        <p>카테고리</p>
+                        <h2>제목</h2>
+                        <h4>내용</h4>
+                        <h5>글쓴이</h5>
+                        <div className="row">
+                        <FaEye></FaEye>
+                        <h5>175</h5>
+                        <FaRegThumbsUp></FaRegThumbsUp>
+                        <h5>1</h5>
+                        <BsChatDots></BsChatDots>
+                        <h5>2</h5>
+                        <h5 className = "icon">2시간</h5>
+                        <BsBookmark className="bookMark"></BsBookmark>
+                        </div>
+                    </MainLayout>
+                </ListViewLayout>
+            </ListLayout>
+        )
+    }
+    
 }
 const ListLayout = styled.div`
     display:flex;

@@ -5,11 +5,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from "mobx-react";
 import YourStore from "./stores/YourStore";
-
+import TopicList from "./stores/TopicList";
 const yourstore = new YourStore();
+const topic = new TopicList();
 //<React.StrictMode> document.getElementById('root')
 ReactDOM.render(
-  <Provider yourstore={yourstore}>
+  <Provider yourstore={yourstore} topic = {topic}>
     <App />
   </Provider>
   ,

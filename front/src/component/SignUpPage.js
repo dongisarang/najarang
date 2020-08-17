@@ -4,7 +4,7 @@ import React, {  Component } from 'react';
 import { Multiselect } from 'multiselect-react-dropdown';
 import { observer, inject } from "mobx-react";
 
-@inject("yourstore")
+@inject("topic")
 @observer
 class SignUpPage extends Component{
     constructor(props) {
@@ -12,9 +12,9 @@ class SignUpPage extends Component{
             this.state = {
                     options: [{name: '취미', id: 1},{name: '소확행', id: 2},{name: '월급루팡', id: 3}]
                 };
-        }
+    }
     onSelect=(selectedList, selectedItem)=>{
-        console.log('누름',selectedList);
+        this.props.topic.addTopic(selectedItem);
     };
     onRemove=(selectedList, removedItem)=>{
       

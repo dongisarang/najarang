@@ -1,12 +1,12 @@
 import { observable, action } from 'mobx';
 
 export default class YourStore {
-  @observable a = false;
+  @observable yourStore = 'hello';
 
-//   @action changeStoreValue = () => {
-//     this.yourStore = value;
-//   };
-//   @action changeToWorld = () => {
-//   	this.yourStore = "World";
-//   }
+  @action changeStoreValue = () => {
+    this.yourStore = value;
+  };
+  @action changeToWorld = () => {
+  	this.yourStore = "World";
+  }
 }
