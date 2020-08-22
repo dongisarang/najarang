@@ -1,12 +1,14 @@
 import React, {  Component } from 'react';
 import TopLayout from './component/TopLayout';
-import KakaoSignUp from './component/KakaoSignUp'
+import LoginPage from './component/LoginPage'
 import NaverLogin from 'react-naver-login';
 import ListPage from './component/ListPage';
-import CreateAccount from './component/CreateAccount';
+import ListRead from './component/ListRead';
 import styled from 'styled-components';
+import SignUpPage from './component/SignUpPage'
 import { Link, Route, BrowserRouter as Router } from "react-router-dom"
-
+import { observer, inject } from "mobx-react";
+@inject("topic")
 class App extends Component {
   
   render() {
@@ -20,9 +22,7 @@ class App extends Component {
               HOME
               </Link>
             </HomeLayout>
-            
-            
-            <Link to='/createAccount' >
+            <Link to='/signup' >
             <Btn>
                 회원가입
             </Btn>
@@ -41,12 +41,11 @@ class App extends Component {
      
         <hr />
         <Route path='/' component={TopLayout} exact={true}/>
-        <Route path='/login' component={KakaoSignUp} exact={true}/>
+        <Route path='/login' component={LoginPage} exact={true}/>
         <Route path='/list' render={props => {return(<ListPage />)}} exact={true}/>
-        <Route path='/createAccount' render={props => {return(<CreateAccount />)}} exact={true}/>
+        <Route path='/signup' component={SignUpPage} exact={true}/>
+        <Route path='/listRead' render={props => {return(<ListRead />)}} exact={true}/>
       </Router>
-      
-      
     )
     }
  }
