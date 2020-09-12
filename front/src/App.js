@@ -63,12 +63,14 @@ class App extends Component {
  `;
 
  const Btn = styled.button`
-    background-color:#8885a4;
-    border-radius:18px;
-    padding:15px;
-    color:#ffffff;
+    margin: 10px 10px 0px 0px; 
+    background-color:#ffffff;
+    border: 1px solid #8885a4;
+    border-radius:5px;
+    padding:5px;
+    text-color:#8885a4;
 `;
 
 export default App;
-
+//background-color:#8885a4;
 //render={props =>{ return( <Login/> )}}
