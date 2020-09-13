@@ -1,32 +1,80 @@
-import React from 'react';
+import React ,{  Component }from 'react';
 import './TopLayout.css';
 import TopicLayout from './TopicLayout';
 import  NewTopicLayout from './NewTopicLayout';
 import ListPage from './ListPage'
 import styled from 'styled-components';
 import { Link, Route, BrowserRouter as Router } from "react-router-dom"
-// const topicItem =({to})=>{
-//     <Link to={to}>
-//     </Link>
-// }
-const TopLayout=()=>(
-    <MainLayout>
-        <InputLayout>
-         <input placeholder="관심있는 내용을 검색하세요!"
-                type = "text"
-                className="form-control">
-        </input>
-       </InputLayout>
-       <BtnLayout>
-           <button>자랑글 쓰러 가기</button>
-       </BtnLayout>
-       <TopicCircleLayout>
-           <button>토픽</button>
-           <button>토픽</button>
-           <button>토픽</button>
-           <button>토픽</button>
-       </TopicCircleLayout>
-    </MainLayout>
+import { observer, inject } from "mobx-react";
+
+@inject("topic")
+class TopLayout extends Component{
+    state =[];
+    constructor(props) {
+        super(props);
+        this.TopicList();
+    }
+    
+    TopicList=()=>{
+        const topicName = this.props.topic.topic;
+        topicName.forEach(name=>{
+            this.state.push(name);
+            console.log(name);
+        })
+    }
+    render(){
+        return(
+            <MainLayout>
+                <InputLayout>
+                <input placeholder="관심있는 내용을 검색하세요!"
+                        type = "text"
+                        className="form-control">
+                </input>
+                </InputLayout>
+                <BtnLayout>
+                    <button>자랑글 쓰러 가기</button>
+                </BtnLayout>
+                <TopicCircleLayout>
+                    {
+                        this.state.map(name=>{
+                            return(<Link to="/list"><TopicCircle>{name}</TopicCircle></Link>)
+                        })
+                    }
+                </TopicCircleLayout>
+                <HotTopicLayout>
+                    <div>핫토픽 리스트</div>
+                </HotTopicLayout>
+            </MainLayout>
+        )
+        
+    }
+}
+// const TopLayout=()=>(
+//     <MainLayout>
+//         <InputLayout>
+//          <input placeholder="관심있는 내용을 검색하세요!"
+//                 type = "text"
+//                 className="form-control">
+//         </input>
+//        </InputLayout>
+//        <BtnLayout>
+//            <button>자랑글 쓰러 가기</button>
+//        </BtnLayout>
+//        <TopicCircleLayout>
+//        <Link to="/list">
+//            <TopicCircle>토픽</TopicCircle>
+//         </Link>
+//         <Link to="/list">
+//            <TopicCircle>토픽</TopicCircle>
+//         </Link>
+//         <Link to="/list">
+//            <TopicCircle>토픽</TopicCircle>
+//         </Link>
+//         <Link to="/list">
+//            <TopicCircle>토픽</TopicCircle>
+//         </Link>
+//        </TopicCircleLayout>
+//     </MainLayout>
 //     <div>
 //     <div className = "myForm">
 //        <InputLayout>
@@ -111,10 +159,11 @@ const TopLayout=()=>(
  
   
     
-)
+//)
 const MainLayout = styled.div`
     display:flex;
     flex-direction:column;
+    padding: 1px 1px 1px 1px;
 `
 const BtnLayout = styled.div`
     display:flex;
@@ -128,29 +177,44 @@ const BtnLayout = styled.div`
         align-items:center;
         margin: 10px 10px 0px 0px;
         width:20%;
-        background-color:#ffffff;
+        height:40px;
+        background-color:#8885a4;
         border: 1px solid #8885a4;
         border-radius:5px;
         padding:5px;
-        text-color:#8885a4;
+        color:#ffffff;
     }
 `
 const TopicCircleLayout = styled.div`
     display:flex;
     flex-direction:row;
     justify-content: center;
-    button{
-        margin: 30px 30px 0px 0px;
-        background-color:#ffffff;
-        border: 1px solid #8885a4;
-        width:20%;
-        height:100px;
-        border-radius:20px;
-        padding:10px;
-        text-color:#8885a4;
-        font-size: 15px;
+    a {text-decoration: none; color:white;}
+`
+const TopicCircle = styled.div`
+    margin: 50px 100px 0px 0px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    background-color:#e2e2e2;
+    border: 0px solid #8885a4;
+    width:100px;
+    height:100px;
+    border-radius:20px;
+    padding:10px;
+    color:#ffffff;
+`
+const HotTopicLayout = styled.div`
+    display:flex;
+    flex-direction:column;
+    div{
+        display:flex;
+        margin: 60px 830px 0px 0px;
+        align-items:center;
+        justify-content: center;
+        font-family: helvetica, sans-serif;
+        font-size:20px;
     }
-
 `
 const Btn = styled.button`
     margin: 10px 10px 0px 0px; 

@@ -20,7 +20,7 @@ class App extends Component {
             <HomeLayout>
             <Link to='/' >
               HOME
-              </Link>
+            </Link>
             </HomeLayout>
             <Link to='/signup' >
             <Btn>
@@ -39,8 +39,8 @@ class App extends Component {
             
        
      
-        <hr />
-        <Route path='/' component={TopLayout} exact={true}/>
+       
+        <Route path='/' render={props => {return(<TopLayout />)}} exact={true}/>
         <Route path='/login' component={LoginPage} exact={true}/>
         <Route path='/list' render={props => {return(<ListPage />)}} exact={true}/>
         <Route path='/signup' component={SignUpPage} exact={true}/>
@@ -53,6 +53,9 @@ class App extends Component {
  const Layout = styled.div`
     display: flex;
     flex-direction:row;
+    background-color:#8885a4;
+    padding: 2px 2px 6px 2px;
+    a {text-decoration: none; color:white;}
  `;
  const HomeLayout = styled.div`
     flex:10;
@@ -60,15 +63,18 @@ class App extends Component {
     display: flex;
     margin-left:10px;
     font-size:30px;
+    color:#8885a4;
+    background-color:#8885a4;
  `;
 
  const Btn = styled.button`
     margin: 10px 10px 0px 0px; 
     background-color:#ffffff;
-    border: 1px solid #8885a4;
+    border: 0px solid #8885a4;
     border-radius:5px;
+    background-color:#8885a4;
     padding:5px;
-    text-color:#8885a4;
+    color:#ffffff;
 `;
 
 export default App;
