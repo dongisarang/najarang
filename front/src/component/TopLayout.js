@@ -8,8 +8,35 @@ import { Link, Route, BrowserRouter as Router } from "react-router-dom"
 import { observer, inject } from "mobx-react";
 
 @inject("topic")
+// function List(data){
+//     <HotTopicListLayout>
+//         {
+//             data.map(res=>{
+//                 console.log(res);
+//             })
+//         }
+//     </HotTopicListLayout>
+// }
 class TopLayout extends Component{
     state =[];
+    data=[
+        {
+            topic:'소확횡',
+            title:'오늘도 과자 많이 먹었습니다.',
+        },
+        {
+            topic:'취미',
+            title:'탄천 1시간 넘게',
+        },
+        {
+            topic:'합격',
+            title:'드디어 공무원 시험 합격했어요!!',
+        },
+        {
+            topic:'월루',
+            title:'또 월요일이 왔네요..이번주도 월루해봅시다',
+        }
+    ]
     constructor(props) {
         super(props);
         this.TopicList();
@@ -21,6 +48,26 @@ class TopLayout extends Component{
             this.state.push(name);
             console.log(name);
         })
+    }
+    hotTopicList=(props)=>{
+        <HotTopicListLayout>
+
+        </HotTopicListLayout>
+    }
+    List(data){
+        
+        data.map(list=>{
+            return(
+                <HotTopicListLayout>
+                    <Link to="/list">
+                        <div>
+                            <p className="topicBox">{list.topic}</p>
+                            <p className="topicTitle">{list.title}</p>
+                        </div>
+                    </Link>
+                </HotTopicListLayout>)
+             })
+          
     }
     render(){
         return(
@@ -44,12 +91,46 @@ class TopLayout extends Component{
                 <HotTopicLayout>
                     <div>핫토픽 리스트</div>
                 </HotTopicLayout>
+                <ListLayout>
+                        {
+                            this.data.map(list=>{
+                            return(
+                                <HotTopicListLayout>
+                                    <Link to="/listRead">
+                                        <div>
+                                            <p className="topicBox">{list.topic}</p>
+                                            <p className="topicTitle">{list.title}</p>
+                                        </div>
+                                    </Link>
+                                </HotTopicListLayout>)
+                             })
+                        }
+                </ListLayout>
+                <HotTopicLayout>
+                    <div>핫토픽 리스트</div>
+                </HotTopicLayout>
+                <ListLayout>
+                        {
+                            this.data.map(list=>{
+                            return(
+                                <HotTopicListLayout>
+                                    <Link to="/listRead">
+                                        <div>
+                                            <p className="topicBox">{list.topic}</p>
+                                            <p className="topicTitle">{list.title}</p>
+                                        </div>
+                                    </Link>
+                                </HotTopicListLayout>)
+                             })
+                        }
+                </ListLayout>
             </MainLayout>
         )
         
     }
 }
 // const TopLayout=()=>(
+    
 //     <MainLayout>
 //         <InputLayout>
 //          <input placeholder="관심있는 내용을 검색하세요!"
@@ -159,7 +240,7 @@ class TopLayout extends Component{
  
   
     
-//)
+// )
 const MainLayout = styled.div`
     display:flex;
     flex-direction:column;
@@ -207,13 +288,50 @@ const TopicCircle = styled.div`
 const HotTopicLayout = styled.div`
     display:flex;
     flex-direction:column;
+    justify-content: center;
+    align-items:center;
     div{
         display:flex;
-        margin: 60px 830px 0px 0px;
+        width:600px;
+        margin: 60px 300px 0px 0px;
         align-items:center;
-        justify-content: center;
+        padding:0px 0px 2px 20px;
         font-family: helvetica, sans-serif;
         font-size:20px;
+        border-bottom:1px solid;
+    }
+   
+`
+const ListLayout = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:center; 
+`
+const HotTopicListLayout = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    a {text-decoration: none; color:black;}
+    div{
+        display:flex;
+        width:400px;
+        margin: 0px 500px 0px 0px;
+        display:flex;
+        flex-direction:row;
+    }
+    .topicBox{
+        border:0px solid #8885a4;
+        border-radius:10px;
+        background-color:#e2e2e2;
+        padding:4px;
+        font-family: helvetica, sans-serif;
+        font-size:13px;
+    }
+    .topicTitle{
+        font-family: helvetica, sans-serif;
+        margin: 14px 0px 0px 20px;
+        width:auto;
     }
 `
 const Btn = styled.button`
