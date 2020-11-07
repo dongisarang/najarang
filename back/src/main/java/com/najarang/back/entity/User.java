@@ -25,8 +25,8 @@ public class User extends BaseTime{
     private String accessToken;
     @Column()
     private String email;
-    @Column(name = "platform_type")
-    private String platformType;
+    @Column()
+    private String provider;
     @Column()
     private String role;
 }

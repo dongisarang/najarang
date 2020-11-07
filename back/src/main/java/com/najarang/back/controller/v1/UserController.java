@@ -46,6 +46,7 @@ public class UserController {
         long userId = user.getId();
         // 회원 없으면 예외처리
         User newUser = userJpaRepo.findById(userId).orElseThrow(CUserNotFoundException::new);
+        // TODO 닉네임이나 주제 변경있을 경우에만 반영되도록 수정하기
         newUser.setNickname(user.getNickname());
         newUser.setInterestedTopic(user.getInterestedTopic());
         return responseService.getSingleResult(userJpaRepo.save(newUser));
