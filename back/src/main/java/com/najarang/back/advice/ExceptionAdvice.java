@@ -41,11 +41,6 @@ public class ExceptionAdvice {
         return responseService.getFailResult(403, "Your account does not exist or your email or password is incorrect.");
     }
 
-    @ExceptionHandler(CAuthenticationEntryPointException.class)
-    public CommonResult authenticationEntryPointException(HttpServletRequest request, CAuthenticationEntryPointException e) {
-        return responseService.getFailResult(403, "You do not have permission to access this resource.");
-    }
-
     @ExceptionHandler(AccessDeniedException.class)
     public CommonResult AccessDeniedException(HttpServletRequest request, AccessDeniedException e) {
         return responseService.getFailResult(403, "A resource that can not be accessed with the privileges it has.");

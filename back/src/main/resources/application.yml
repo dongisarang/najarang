@@ -1,14 +1,6 @@
 spring:
   profiles:
     active: local
-    include: commonSecret
-  social:
-    kakao:
-      redirect: /v1/social/login/kakao
-      url:
-        login: https://kauth.kakao.com/oauth/authorize
-        token: https://kauth.kakao.com/oauth/token
-        profile: https://kapi.kakao.com/v2/user/me
 
 ---
 logging:
