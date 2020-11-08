@@ -83,6 +83,12 @@ public class JwtServiceImpl implements JwtService {
 
 	@Override
 	public boolean isUsable(String jwt) {
+	// claim으로 변환도중 예외가 발생하면 유효하지 않은 토큰으로 판단하고, 예외를 핸들링 함
+	// 1) ExpiredJwtException : JWT를 생성할 때 지정한 유효기간 초과할 때
+	// 2) UnsupportedJwtException : 예상하는 형식과 일치하지 않는 특정 형식이나 구성의 JWT일 때
+	// 3) MalformedJwtException : JWT가 올바르게 구성되지 않았을 때
+	// 4) SignatureException :  JWT의 기존 서명을 확인하지 못했을 때
+	// 5) IllegalArgumentException
 		try{
 			Jws<Claims> claims = Jwts.parser()
 					  .setSigningKey(this.generateKey())

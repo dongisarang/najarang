@@ -36,7 +36,7 @@ public class ExceptionAdvice {
     }
 
     @ExceptionHandler(CUnauthorizedException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     protected CommonResult unAuthorizedException(HttpServletRequest request, CUserNotFoundException e) {
         return responseService.getFailResult(403, "user privileges are not valid");
     }
