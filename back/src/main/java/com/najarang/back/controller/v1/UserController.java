@@ -1,6 +1,7 @@
 package com.najarang.back.controller.v1;
 
 import com.najarang.back.advice.exception.CUserNotFoundException;
+import com.najarang.back.dto.UserDTO;
 import com.najarang.back.entity.User;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.model.response.ListResult;
@@ -13,11 +14,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"1. User"})
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class UserController {
 
     private final UserService userService; // 결과를 처리할 Service
@@ -36,13 +39,13 @@ public class UserController {
 
     @ApiOperation(value = "회원 등록", notes = "회원을 등록한다")
     @PostMapping(value = "/user")
-    public SingleResult<User> save(@ApiParam(name = "user", value = "회원정보", required = true) @RequestBody User user) {
+    public SingleResult<User> save(@ApiParam(name = "user", value = "회원정보", required = true) @RequestBody UserDTO user) {
         return userService.save(user);
     }
 
     @ApiOperation(value = "회원 수정", notes = "회원정보를 수정한다")
     @PutMapping(value = "/user")
-    public SingleResult<User> modify(@ApiParam(name = "user", value = "회원정보", required = true) @RequestBody User user) {
+    public SingleResult<User> modify(@ApiParam(name = "user", value = "회원정보", required = true) @RequestBody UserDTO user) {
         return userService.modify(user);
     }
 

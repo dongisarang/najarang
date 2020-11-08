@@ -1,5 +1,6 @@
 package com.najarang.back.service;
 
+import com.najarang.back.dto.UserDTO;
 import com.najarang.back.entity.User;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.model.response.ListResult;
@@ -11,7 +12,8 @@ public interface UserService {
 
     ListResult<User> findAllUser();
     SingleResult<User> findUserById(long id);
-    SingleResult<User> save(User user);
-    SingleResult<User> modify(User user);
+    SingleResult<User> save(UserDTO user);
+    SingleResult<User> modify(UserDTO user);
     CommonResult delete(long id);
+    User signin(UserDTO user);
 }

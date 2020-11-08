@@ -1,5 +1,6 @@
 package com.najarang.back.advice;
 
+import com.najarang.back.advice.exception.CUnauthorizedException;
 import com.najarang.back.advice.exception.CUserNotFoundException;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.service.ResponseService;
@@ -32,5 +33,11 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected CommonResult userNotFoundException(HttpServletRequest request, CUserNotFoundException e) {
         return responseService.getFailResult(404, "this user is not exist");
+    }
+
+    @ExceptionHandler(CUnauthorizedException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected CommonResult unAuthorizedException(HttpServletRequest request, CUserNotFoundException e) {
+        return responseService.getFailResult(403, "user privileges are not valid");
     }
 }
