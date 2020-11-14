@@ -1,4 +1,9 @@
 spring:
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     driver-class-name: org.h2.Driver
@@ -7,3 +12,16 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     properties.hibernate.hbm2ddl.auto: update
     showSql: true
+---
+spring:
+  profiles: dev
+  profiles.include: devSecret
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties.hibernate:
+      hbm2ddl.auto: none
+      format_sql: true
+    showSql: true
+    generate-ddl: false
+  url:
+    base: https://najarnag.ml
