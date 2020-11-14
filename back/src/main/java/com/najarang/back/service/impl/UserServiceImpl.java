@@ -1,5 +1,6 @@
 package com.najarang.back.service.impl;
 
+import com.najarang.back.advice.exception.CUserAlreadyExistException;
 import com.najarang.back.advice.exception.CUserNotFoundException;
 import com.najarang.back.dto.UserDTO;
 import com.najarang.back.entity.User;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 @RequiredArgsConstructor
 @Service("userService")
@@ -56,5 +59,14 @@ public class UserServiceImpl implements UserService{
         User loginUser = userJpaRepo.findByEmailAndProvider(user.getEmail(), user.getProvider());
         Objects.requireNonNull(loginUser, SIGNIN_EXCEPTION_MSG);
         return loginUser;
+    }
+
+    public User signup(UserDTO user) {
+        User loginUser = userJpaRepo.findByEmailAndProvider(user.getEmail(), user.getProvider());
+        if (isNull(loginUser)) {
+            return userJpaRepo.save(user.toEntity());
+        } else {
+            throw new CUserAlreadyExistException();
+        }
     }
 }

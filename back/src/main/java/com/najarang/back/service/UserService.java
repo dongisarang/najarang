@@ -16,4 +16,5 @@ public interface UserService {
     SingleResult<User> modify(UserDTO user);
     CommonResult delete(long id);
     User signin(UserDTO user);
+    User signup(UserDTO user);
 }

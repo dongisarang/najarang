@@ -29,13 +29,14 @@ public class SignController {
 
     @PostMapping(path = "/signin")
     public CommonResult signin(@RequestBody UserDTO user) {
-        User loginUser;
-        try {
-            loginUser = userService.signin(user);
-            String token = jwtService.create("member", loginUser, "user");
-            return responseService.getSuccessResult(token);
-        } catch(Exception e) {
-            return responseService.getFailResult(403, "this user is not exist");
-        }
+        User loginUser = userService.signin(user);
+        String token = jwtService.create("member", loginUser, "user");
+        return responseService.getSuccessResult(token);
+    }
+
+    @PostMapping(path = "/signup")
+    public CommonResult signup(@RequestBody UserDTO user) {
+        User loginUser = userService.signup(user);
+        return responseService.getSuccessResult("success");
     }
 }

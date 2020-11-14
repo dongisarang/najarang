@@ -1,6 +1,7 @@
 package com.najarang.back.advice;
 
 import com.najarang.back.advice.exception.CUnauthorizedException;
+import com.najarang.back.advice.exception.CUserAlreadyExistException;
 import com.najarang.back.advice.exception.CUserNotFoundException;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.service.ResponseService;
@@ -39,5 +40,11 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     protected CommonResult unAuthorizedException(HttpServletRequest request, CUserNotFoundException e) {
         return responseService.getFailResult(403, "user privileges are not valid");
+    }
+
+    @ExceptionHandler(CUserAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    protected CommonResult userAlreadyExistException(HttpServletRequest request, CUserNotFoundException e) {
+        return responseService.getFailResult(403, "이미 있는 회원입니다.");
     }
 }
