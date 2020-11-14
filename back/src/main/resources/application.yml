@@ -1,13 +1,7 @@
 spring:
   profiles:
     active: local
-
 ---
-logging:
-  level:
-    root: warn
-    com.najarang.back: debug
-
 spring:
   profiles: local
   datasource:
@@ -16,23 +10,15 @@ spring:
     username: sa
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    properties.hibernate:
-      hbm2ddl.auto: update
-      format_sql: true
+    properties.hibernate.hbm2ddl.auto: update
     showSql: true
-    generate-ddl: true
-  url:
-    base: http://localhost:8080
 ---
 spring:
   profiles: dev
   profiles.include: devSecret
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties.hibernate:
-      hbm2ddl.auto: none
-      format_sql: true
-    showSql: true
-    generate-ddl: false
+    hibernate.ddl-auto: update
+    properties.hibernate.format_sql: true
+    show-sql: true
   url:
     base: https://najarnag.ml

@@ -1,10 +1,12 @@
 package com.najarang.back.model.response;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ListResult<T> extends CommonResult {
     private List<T> list;
 }

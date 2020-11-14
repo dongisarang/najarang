@@ -1,11 +1,12 @@
 package com.najarang.back.advice;
 
-import com.najarang.back.advice.exception.*;
+import com.najarang.back.advice.exception.CUnauthorizedException;
+import com.najarang.back.advice.exception.CUserAlreadyExistException;
+import com.najarang.back.advice.exception.CUserNotFoundException;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.service.ResponseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -35,26 +36,15 @@ public class ExceptionAdvice {
         return responseService.getFailResult(404, "this user is not exist");
     }
 
-    @ExceptionHandler(CEmailSigninFailedException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    protected CommonResult emailSigninFailed(HttpServletRequest request, CEmailSigninFailedException e) {
-        return responseService.getFailResult(403, "Your account does not exist or your email or password is incorrect.");
+    @ExceptionHandler(CUnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    protected CommonResult unAuthorizedException(HttpServletRequest request, CUserNotFoundException e) {
+        return responseService.getFailResult(403, "user privileges are not valid");
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public CommonResult AccessDeniedException(HttpServletRequest request, AccessDeniedException e) {
-        return responseService.getFailResult(403, "A resource that can not be accessed with the privileges it has.");
-    }
-
-    @ExceptionHandler(CCommunicationException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public CommonResult communicationException(HttpServletRequest request, CCommunicationException e) {
-        return responseService.getFailResult(500, "An error occurred during communication.");
-    }
-
-    @ExceptionHandler(CUserExistException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public CommonResult communicationException(HttpServletRequest request, CUserExistException e) {
-        return responseService.getFailResult(403, "You are an existing member.");
+    @ExceptionHandler(CUserAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    protected CommonResult userAlreadyExistException(HttpServletRequest request, CUserAlreadyExistException e) {
+        return responseService.getFailResult(403, "이미 있는 회원입니다.");
     }
 }

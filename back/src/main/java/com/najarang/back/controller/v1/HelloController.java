@@ -1,4 +1,4 @@
-package com.najarang.back.controller;
+package com.najarang.back.controller.v1;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
