@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.Objects;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
@@ -25,7 +26,6 @@ public class UserServiceImpl implements UserService{
 
     private final UserJpaRepo userJpaRepo;
     private final ResponseService responseService; // 결과를 처리할 Service
-    private static final String SIGNIN_EXCEPTION_MSG = "로그인정보가 일치하지 않습니다.";
 
     public ListResult<User> findAllUser() {
         return responseService.getListResult(userJpaRepo.findAll());
@@ -57,15 +57,14 @@ public class UserServiceImpl implements UserService{
     }
 
     public User signin(UserDTO user) {
-        User loginUser = userJpaRepo.findByEmailAndProvider(user.getEmail(), user.getProvider());
-        Objects.requireNonNull(loginUser, SIGNIN_EXCEPTION_MSG);
-        return loginUser;
+        Optional<User> loginUser = userJpaRepo.findByEmailAndProvider(user.getEmail(), user.getProvider());
+        loginUser.orElseThrow(() -> new CUserNotFoundException());
+        return loginUser.get();
     }
 
     public User signup(UserDTO user) {
-        User loginUser = userJpaRepo.findByEmailAndProvider(user.getEmail(), user.getProvider());
-        log.info("loginUser>" + loginUser.toString());
-        if (isNull(loginUser)) {
+        Optional<User> loginUser = userJpaRepo.findByEmailAndProvider(user.getEmail(), user.getProvider());
+        if (!loginUser.isPresent()) {
             return userJpaRepo.save(user.toEntity());
         } else {
             throw new CUserAlreadyExistException();
