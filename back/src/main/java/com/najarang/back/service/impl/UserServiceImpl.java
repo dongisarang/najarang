@@ -10,6 +10,7 @@ import com.najarang.back.model.response.SingleResult;
 import com.najarang.back.repo.UserJpaRepo;
 import com.najarang.back.service.ResponseService;
 import com.najarang.back.service.UserService;
+import com.najarang.back.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

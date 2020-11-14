@@ -1,7 +1,6 @@
 package com.najarang.back.security;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,12 +14,15 @@ public class WebConfig implements WebMvcConfigurer {
             "/error/**"
     };
 
-    @Autowired
-    private JwtInterceptor jwtInterceptor;
+    private final AuthInterceptor AuthInterceptor;
+
+    public WebConfig(com.najarang.back.security.AuthInterceptor authInterceptor) {
+        AuthInterceptor = authInterceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor)
+        registry.addInterceptor(AuthInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(EXCLUDE_PATHS);
     }
