@@ -10,6 +10,7 @@ import { observer, inject } from 'mobx-react'
 import ListComponent from './ListComponent'
 @inject('topic')
 @inject('currentTopic')
+@inject('dataStore')
 class ListPage extends Component {
     constructor(props) {
         super(props)
@@ -22,6 +23,7 @@ class ListPage extends Component {
     //토픽에 애초에 본인이 선택한 토픽만 나오도록 해야함
     render() {
         let list = [...this.props.topic.topic]
+        let dataList = [...this.props.dataStore.dataList]
         //let $topic = document.querySelector('#')
         return (
             <ListLayout>
@@ -43,7 +45,7 @@ class ListPage extends Component {
                         <p>카테고리</p>
                         <h2>제목</h2>
                         <h4>내용</h4>
-                        <h5>글쓴이</h5>
+                        <h5>{dataList[0].id}</h5>
                         <div className="row">
                             <FaEye></FaEye>
                             <h5>175</h5>
