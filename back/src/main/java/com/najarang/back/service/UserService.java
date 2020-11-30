@@ -7,7 +7,6 @@ import com.najarang.back.model.response.ListResult;
 import com.najarang.back.model.response.SingleResult;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface UserService {
 
     ListResult<User> findAllUser();

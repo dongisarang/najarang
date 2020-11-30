@@ -13,9 +13,11 @@ import javax.persistence.*;
 @Builder
 @Table(name = "topic")
 public class Topic{
+
     @Id // primaryKey임
     @GeneratedValue(strategy = GenerationType.IDENTITY) //  pk 필드를 auto_increment로 설정
     private Long id;
+
     @Column()
     private String name;
 
