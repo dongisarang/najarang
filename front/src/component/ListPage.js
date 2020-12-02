@@ -9,7 +9,7 @@ import { BsBookmark } from 'react-icons/bs'
 import { observer, inject } from 'mobx-react'
 import ListComponent from './ListComponent'
 @inject('topic')
-@inject('currentTopic')
+@inject('currentTopic') 
 @inject('dataStore')
 class ListPage extends Component {
     constructor(props) {
