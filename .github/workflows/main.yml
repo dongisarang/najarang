@@ -28,4 +28,4 @@ jobs:
           script: |
             cd ${{ secrets.WEB_PATH }} && git pull
             npm install
-            npm build
+            npm run build
