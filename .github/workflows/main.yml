@@ -25,7 +25,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script_stop: true
           script: |
             cd ${{ secrets.WEB_PATH }} && git pull
             npm install
