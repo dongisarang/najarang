@@ -12,17 +12,20 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@master
 
-      - name: Cache node modules
-        uses: actions/cache@v1
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+        
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: node_modules # 캐시를 저장하거나 복원할 디렉토리
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }} # 캐시를 저장하거나 복원할 때 사용되는 유니크한 키 값
-          restore-keys: | # 키 값이 기존의 캐시와 일치하지 않는 경우 사용되는 대체 키 값 리스트(optional)
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
-            
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
       - name: Install dependencies
         run: npm install
 
       - name: Build 
-        run: npm run build
+        run: yarn build
