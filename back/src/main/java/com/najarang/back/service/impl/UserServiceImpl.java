@@ -10,14 +10,12 @@ import com.najarang.back.model.response.SingleResult;
 import com.najarang.back.repo.UserJpaRepo;
 import com.najarang.back.service.ResponseService;
 import com.najarang.back.service.UserService;
-import com.najarang.back.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.Objects;
 import java.util.Optional;
-
-import static java.util.Objects.isNull;
 
 @RequiredArgsConstructor
 @Service("userService")
@@ -27,8 +25,9 @@ public class UserServiceImpl implements UserService{
     private final UserJpaRepo userJpaRepo;
     private final ResponseService responseService; // 결과를 처리할 Service
 
-    public ListResult<User> findAllUser() {
-        return responseService.getListResult(userJpaRepo.findAll());
+    public ListResult<User> findAllUser(Pageable pageable) {
+        Page<User> users = userJpaRepo.findAll(pageable);
+        return responseService.getListResult(users);
     }
 
     public SingleResult<User> findUserById(long id) {
