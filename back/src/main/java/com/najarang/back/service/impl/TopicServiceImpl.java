@@ -3,13 +3,13 @@ package com.najarang.back.service.impl;
 import com.najarang.back.dto.TopicDTO;
 import com.najarang.back.entity.Topic;
 import com.najarang.back.model.response.CommonResult;
+import com.najarang.back.model.response.ListResult;
 import com.najarang.back.model.response.SingleResult;
 import com.najarang.back.repo.TopicJpaRepo;
 import com.najarang.back.service.ResponseService;
 import com.najarang.back.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,8 @@ public class TopicServiceImpl implements TopicService {
     private final TopicJpaRepo topicJpaRepo;
     private final ResponseService responseService;
 
-    public Page<Topic> list(Pageable pageable) {
-        return topicJpaRepo.findAll(pageable);
+    public ListResult<Topic> list(Pageable pageable) {
+        return responseService.getListResult(topicJpaRepo.findAll(pageable));
     }
 
     public SingleResult<Topic> save(TopicDTO topic) {

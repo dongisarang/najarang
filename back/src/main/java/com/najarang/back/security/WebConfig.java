@@ -11,6 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/signin",
             "/signup",
             "/topics",
+            "/users",
             "/helloworld/**",
             "/error/**"
     };

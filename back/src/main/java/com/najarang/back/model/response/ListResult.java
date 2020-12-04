@@ -9,4 +9,8 @@ import lombok.Setter;
 @Setter
 public class ListResult<T> extends CommonResult {
     private List<T> list;
+    private long totalPage;
+    private long currPage;
+    private long totalElements;
+    private long limit;
 }

@@ -8,7 +8,6 @@ import com.najarang.back.model.response.SingleResult;
 import com.najarang.back.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ public class TopicController {
     private final TopicService topicService;
 
     @GetMapping(value = "/topics")
-    public Page<Topic> findAllTopic(final Pageable pageable) {
+    public ListResult<Topic> findAllTopic(final Pageable pageable) {
         return topicService.list(pageable);
     }
 

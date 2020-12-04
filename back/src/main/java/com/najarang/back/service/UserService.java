@@ -5,11 +5,11 @@ import com.najarang.back.entity.User;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.model.response.ListResult;
 import com.najarang.back.model.response.SingleResult;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
-    ListResult<User> findAllUser();
+    ListResult<User> findAllUser(Pageable pageable);
     SingleResult<User> findUserById(long id);
     SingleResult<User> save(UserDTO user);
     SingleResult<User> modify(UserDTO user);
