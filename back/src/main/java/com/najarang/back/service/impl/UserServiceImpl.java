@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService{
     private final UserJpaRepo userJpaRepo;
     private final ResponseService responseService; // 결과를 처리할 Service
 
-    public ListResult<User> findAllUser(Pageable pageable) {
+    public ListResult<User> getUsers(Pageable pageable) {
         Page<User> users = userJpaRepo.findAll(pageable);
         return responseService.getListResult(users);
     }
 
-    public SingleResult<User> findUserById(long id) {
+    public SingleResult<User> getUser(long id) {
         return responseService.getSingleResult(userJpaRepo.findById(id).orElseThrow(CUserNotFoundException::new));
     }
 

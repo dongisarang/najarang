@@ -1,7 +1,10 @@
 package com.najarang.back.service.impl;
 
+import com.najarang.back.advice.exception.CBoardNotFoundException;
+import com.najarang.back.advice.exception.CUserNotFoundException;
 import com.najarang.back.dto.BoardDTO;
 import com.najarang.back.entity.Board;
+import com.najarang.back.entity.User;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.model.response.ListResult;
 import com.najarang.back.model.response.SingleResult;
@@ -23,8 +26,12 @@ public class BoardServiceImpl implements BoardService {
     private final BoardJpaRepo boardJpaRepo;
     private final ResponseService responseService;
 
-    public ListResult<Board> list(Pageable pageable) {
+    public ListResult<Board> getBoards(Pageable pageable) {
         return responseService.getListResult(boardJpaRepo.findAll(pageable));
+    }
+
+    public SingleResult<Board> getBoard(long id) {
+        return responseService.getSingleResult(boardJpaRepo.findById(id).orElseThrow(CBoardNotFoundException::new));
     }
 
     public SingleResult<Board> save(BoardDTO board) {

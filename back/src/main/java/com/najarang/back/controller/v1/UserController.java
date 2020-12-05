@@ -25,13 +25,13 @@ public class UserController {
     @ApiOperation(value = "회원 리스트 조회", notes = "모든 회원을 조회한다")
     @GetMapping(value = "/users")
     public ListResult<User> findAllUser(final Pageable pageable) {
-        return userService.findAllUser(pageable);
+        return userService.getUsers(pageable);
     }
 
     @ApiOperation(value = "회원 단건 조회", notes = "회원번호로 회원을 조회한다")
     @GetMapping(value = "/user/{id}")
     public SingleResult<User> findUserById(@ApiParam(value = "회원번호", required = true) @PathVariable long id) {
-        return userService.findUserById(id);
+        return userService.getUser(id);
     }
 
     @ApiOperation(value = "회원 등록", notes = "회원을 등록한다")

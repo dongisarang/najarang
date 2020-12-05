@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
-    ListResult<User> findAllUser(Pageable pageable);
-    SingleResult<User> findUserById(long id);
+    ListResult<User> getUsers(Pageable pageable);
+    SingleResult<User> getUser(long id);
     SingleResult<User> save(UserDTO user);
     SingleResult<User> modify(UserDTO user);
     CommonResult delete(long id);

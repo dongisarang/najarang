@@ -1,5 +1,6 @@
 package com.najarang.back.advice;
 
+import com.najarang.back.advice.exception.CBoardNotFoundException;
 import com.najarang.back.advice.exception.CUnauthorizedException;
 import com.najarang.back.advice.exception.CUserAlreadyExistException;
 import com.najarang.back.advice.exception.CUserNotFoundException;
@@ -51,5 +52,11 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     protected CommonResult userAlreadyExistException(HttpServletRequest request, CUserAlreadyExistException e) {
         return responseService.getFailResult(403, "이미 있는 회원입니다.");
+    }
+
+    @ExceptionHandler(CBoardNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected CommonResult boardNotFoundException(HttpServletRequest request, CUserNotFoundException e) {
+        return responseService.getFailResult(404, "게시글 정보가 없습니다.");
     }
 }
