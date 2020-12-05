@@ -28,8 +28,9 @@ public class TopicController {
         return topicService.save(topic);
     }
 
-    @PutMapping(value = "/topic")
-    public SingleResult<Topic> modify(@RequestBody TopicDTO topic) {
+    @PutMapping(value = "/topic/{id}")
+    public SingleResult<Topic> modify(@RequestBody TopicDTO topic, @PathVariable long id) {
+        topic.setId(id);
         return topicService.modify(topic);
     }
 

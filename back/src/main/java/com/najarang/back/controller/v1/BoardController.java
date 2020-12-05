@@ -36,8 +36,9 @@ public class BoardController {
         return boardService.save(board);
     }
 
-    @PutMapping(value = "/board")
-    public SingleResult<Board> modify(@RequestBody BoardDTO board) {
+    @PutMapping(value = "/board/{id}")
+    public SingleResult<Board> modify(@RequestBody BoardDTO board, @PathVariable long id) {
+        board.setId(id);
         return boardService.modify(board);
     }
 

@@ -41,8 +41,9 @@ public class UserController {
     }
 
     @ApiOperation(value = "회원 수정", notes = "회원정보를 수정한다")
-    @PutMapping(value = "/user")
-    public SingleResult<User> modify(@ApiParam(name = "user", value = "회원정보", required = true) @RequestBody UserDTO user) {
+    @PutMapping(value = "/user/{id}")
+    public SingleResult<User> modify(@ApiParam(name = "user", value = "회원정보", required = true) @RequestBody UserDTO user, @PathVariable long id) {
+        user.setId(id);
         return userService.modify(user);
     }
 
