@@ -29,15 +29,7 @@ import data from "./data";
 import useStores from '../hooks/useStores';
 const ListComponent = () => {
     const currentData = data;
-    const {
-        content
-    } = useStores();
-    return ( <
-        div > {
-            content.flag
-        } <
-        /div>
-    );
+
 };
 
 export default ListComponent;
