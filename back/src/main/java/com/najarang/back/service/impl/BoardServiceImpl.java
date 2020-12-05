@@ -1,0 +1,47 @@
+package com.najarang.back.service.impl;
+
+import com.najarang.back.dto.BoardDTO;
+import com.najarang.back.entity.Board;
+import com.najarang.back.model.response.CommonResult;
+import com.najarang.back.model.response.ListResult;
+import com.najarang.back.model.response.SingleResult;
+import com.najarang.back.repo.BoardJpaRepo;
+import com.najarang.back.service.ResponseService;
+import com.najarang.back.service.BoardService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@RequiredArgsConstructor
+@Service("boardService")
+@Slf4j
+public class BoardServiceImpl implements BoardService {
+
+    private final BoardJpaRepo boardJpaRepo;
+    private final ResponseService responseService;
+
+    public ListResult<Board> list(Pageable pageable) {
+        return responseService.getListResult(boardJpaRepo.findAll(pageable));
+    }
+
+    public SingleResult<Board> save(BoardDTO board) {
+        return responseService.getSingleResult(boardJpaRepo.save(board.toEntity()));
+    }
+
+    public SingleResult<Board> modify(BoardDTO board) {
+        long boardId = board.getId();
+        Optional<Board> newBoard = boardJpaRepo.findById(boardId);
+        BoardDTO boardDto = newBoard.get().toDTO();
+        if (board.getTitle() != null) boardDto.setTitle(board.getTitle());
+        if (board.getContent() != null) boardDto.setContent(board.getContent());
+        return responseService.getSingleResult(boardJpaRepo.save(boardDto.toEntity()));
+    }
+
+    public CommonResult delete(long id) {
+        boardJpaRepo.deleteById(id);
+        return responseService.getSuccessResult(String.valueOf(id));
+    }
+}

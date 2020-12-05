@@ -2,9 +2,9 @@ package com.najarang.back.entity;
 
 import com.najarang.back.dto.UserDTO;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.swing.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +12,7 @@ import javax.swing.*;
 @Getter
 @ToString
 @Builder
+@DynamicUpdate
 @Table(name = "user") // 'user' 테이블과 매핑
 public class User extends BaseTime{
     @Id // primaryKey임
