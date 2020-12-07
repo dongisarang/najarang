@@ -16,7 +16,7 @@ public class BoardDTO extends BaseTime {
     private String content;
     private Long userId;
     private Long topicId;
-    private String topicTitle;
+    private String topicName;
     private Long likeCount;
     private Long hitCount;
 
@@ -27,7 +27,7 @@ public class BoardDTO extends BaseTime {
         this.content = board.getContent();
         this.userId = board.getUserId();
         this.topicId = board.getTopicId();
-        this.topicTitle = board.getTopicTitle();
+        this.topicName = board.getTopicName();
         this.likeCount = board.getLikeCount();
         this.hitCount = board.getHitCount();
     }
@@ -39,7 +39,7 @@ public class BoardDTO extends BaseTime {
                 .content(content)
                 .userId(userId)
                 .topicId(topicId)
-                .topicTitle(topicTitle)
+                .topicName(topicName)
                 .likeCount(likeCount)
                 .hitCount(hitCount)
                 .build();
