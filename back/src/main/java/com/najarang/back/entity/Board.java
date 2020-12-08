@@ -2,8 +2,6 @@ package com.najarang.back.entity;
 
 import com.najarang.back.dto.BoardDTO;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -30,14 +28,14 @@ public class Board extends BaseTime{
     private Long userId;
     @Column(name = "topic_id")
     private Long topicId;
-    @Column(name = "topic_title")
-    private String topicTitle;
+    @Column(name = "topic_name")
+    private String topicName;
     @Column(name = "like_count")
     private Long likeCount;
     @Column(name = "hit_count")
     private Long hitCount;
 
     public BoardDTO toDTO(){
-        return new BoardDTO(this.id, this.title, this.content, this.userId, this.topicId, this.topicTitle, this.likeCount, this.hitCount);
+        return new BoardDTO(this.id, this.title, this.content, this.userId, this.topicId, this.topicName, this.likeCount, this.hitCount);
     }
 }
