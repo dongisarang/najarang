@@ -3,6 +3,7 @@ import styled from "styled-components";
 import googleLogin from "./googleLogin";
 //import { StyledText } from '../style';
 import KaKaoLogin from "react-kakao-login";
+import { observer, inject } from "mobx-react";
 import GoogleLogin from "react-google-login";
 import {
   Link,
@@ -11,6 +12,8 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import SignUpPage from "./SignUpPage";
+@inject("topic")
+@observer
 class KakaoSignUp extends Component {
   // constructor(props) {
   //     super(props);
@@ -32,6 +35,7 @@ class KakaoSignUp extends Component {
     Kakao.Auth.login({
       success: (auth) => {
         console.log("success login");
+        this.props.topic.setUserEmail(res.profile.kakao_account.email);
         // <Redirect to="/signup"></Redirect>;
         this.props.history.push("/signup");
       },
@@ -39,7 +43,8 @@ class KakaoSignUp extends Component {
         console.log("login fail");
       },
     });
-    console.log("data: ", res);
+    this.props.topic.setUserEmail(res.profile.kakao_account.email);
+    console.log("data: ", res, "  ", this.props.topic.getUserEmail());
   };
 
   responseFail = (err) => {

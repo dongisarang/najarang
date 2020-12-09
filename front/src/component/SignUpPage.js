@@ -16,6 +16,7 @@ class SignUpPage extends Component {
         { name: "소확행", id: 2 },
         { name: "월급루팡", id: 3 },
       ],
+      nick: "",
     };
   }
   onSelect = (selectedList, selectedItem) => {
@@ -28,8 +29,8 @@ class SignUpPage extends Component {
     // form.getFieldValue("usernick");
     const queryObj = {
       interestedTopic: interestedTopic,
-      nickname: "아아아",
-      email: "prefjdk@naver.com",
+      nickname: this.state.nick,
+      email: this.props.topic.getUserEmail(),
       provider: "kakao",
     };
     axios.post("/signup", queryObj);
@@ -47,6 +48,10 @@ class SignUpPage extends Component {
     //   });
   };
   onRemove = (selectedList, removedItem) => {};
+  onChange = (e) => {
+    this.setState({ nick: e.target.value });
+    console.log(this.state.nick);
+  };
   render() {
     return (
       <Layout>
@@ -60,7 +65,7 @@ class SignUpPage extends Component {
               //     { required: true, message: "Please input your username!" },
               //   ]}
             >
-              <InputComponent></InputComponent>
+              <InputComponent onChange={this.onChange}></InputComponent>
             </Form.Item>
           </FormComponent>
 

@@ -4,6 +4,7 @@ export default class TopicList {
   //@observable topic = [];
   @observable topic = ["취미", "소확횡", "월루", "합격"];
   @observable selectTopic = [];
+  @observable userEmail = "";
   //고른 토픽들 넣는 함수
   @action addTopic = (data) => {
     const len = this.topic.length;
@@ -14,5 +15,11 @@ export default class TopicList {
   };
   @action getTopic = () => {
     return this.selectTopic;
+  };
+  @action setUserEmail = (userEmail) => {
+    this.userEmail = userEmail;
+  };
+  @action getUserEmail = () => {
+    return this.userEmail;
   };
 }
