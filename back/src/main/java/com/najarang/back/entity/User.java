@@ -1,17 +1,18 @@
 package com.najarang.back.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.najarang.back.dto.UserDTO;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Builder
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Getter
+@ToString
+@Builder
+@DynamicUpdate
 @Table(name = "user") // 'user' 테이블과 매핑
 public class User extends BaseTime{
     @Id // primaryKey임
@@ -25,8 +26,12 @@ public class User extends BaseTime{
     private String accessToken;
     @Column()
     private String email;
-    @Column(name = "platform_type")
-    private String platformType;
+    @Column()
+    private String provider;
     @Column()
     private String role;
+
+    public UserDTO toDTO(){
+        return new UserDTO(this.id, this.interestedTopic, this.nickname, this.accessToken, this.email, this.provider, this.role);
+    }
 }

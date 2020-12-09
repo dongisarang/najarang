@@ -1,0 +1,31 @@
+name: React build & deploy
+on: 
+  push:
+    branches:
+      - master
+    paths:
+      - 'front/**'
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@master
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build 
+        run: npm build
+
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ${{ secrets.WEB_PATH }} && git pull
+            npm install --no-optional
+            npm run build

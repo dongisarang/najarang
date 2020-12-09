@@ -3,9 +3,8 @@ package com.najarang.back.service;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.model.response.ListResult;
 import com.najarang.back.model.response.SingleResult;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ResponseService {
@@ -36,17 +35,23 @@ public class ResponseService {
     }
 
     // 다중건 결과를 처리하는 메소드
-    public <T> ListResult<T> getListResult(List<T> list) {
+    public <T> ListResult<T> getListResult(Page<T> pageObj) {
         ListResult<T> result = new ListResult<>();
-        result.setList(list);
+        result.setList(pageObj.getContent());
+        result.setTotalElements(pageObj.getTotalElements());
+        result.setTotalPage(pageObj.getTotalPages());
+        result.setCurrPage(pageObj.getNumber());
+        result.setLimit(pageObj.getSize());
         setSuccessResult(result);
         return result;
     }
 
     // 성공 결과만 처리하는 메소드
-    public CommonResult getSuccessResult() {
+    public CommonResult getSuccessResult(String msg) {
         CommonResult result = new CommonResult();
-        setSuccessResult(result);
+        result.setResult(true);
+        result.setCode(200);
+        result.setMsg(msg);
         return result;
     }
 

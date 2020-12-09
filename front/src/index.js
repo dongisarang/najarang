@@ -6,11 +6,13 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from "mobx-react";
 import CurrentTopic from "./stores/CurrentTopic";
 import TopicList from "./stores/TopicList";
+import DataStore from "./stores/DataStore";
 const currentTopic = new CurrentTopic();
 const topic = new TopicList();
+const dataStore = new DataStore();
 //<React.StrictMode> document.getElementById('root')
 ReactDOM.render(
-  <Provider currentTopic={currentTopic} topic = {topic}>
+  <Provider currentTopic={currentTopic} topic = {topic} dataStore = {dataStore}>
     <App />
   </Provider>
   ,
