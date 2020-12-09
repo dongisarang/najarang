@@ -27,5 +27,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${{ secrets.WEB_PATH }} && git pull
-            npm install
+            npm install --no-optional
             npm run build
