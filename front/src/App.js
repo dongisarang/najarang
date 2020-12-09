@@ -8,7 +8,7 @@ import styled from "styled-components";
 import SignUpPage from "./component/SignUpPage";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-const AppContext = createContext();
+// const AppContext = createContext();
 @inject("topic")
 class App extends Component {
   render() {
