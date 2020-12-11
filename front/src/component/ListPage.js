@@ -19,11 +19,33 @@ class ListPage extends Component {
     addCurrentTopic(item) {
         this.props.currentTopic.setCurrentTopic(item)
     }
-
+    replyRender(){
+        for(let i=0;i<5;i++){
+            return(
+                <ListViewLayout>
+                    <MainLayout>
+                        <Link to="/listRead">
+                            <ListComponent></ListComponent>
+                        </Link>
+                    </MainLayout>
+                    <MainLayout>
+                        <Link to="/listRead">
+                            <ListComponent></ListComponent>
+                        </Link>
+                    </MainLayout>
+                </ListViewLayout>
+        
+            )
+        }
+    }
     //토픽에 애초에 본인이 선택한 토픽만 나오도록 해야함
     render() {
         let list = [...this.props.topic.topic]
-        let dataList = [...this.props.dataStore.dataList]
+        let dataList = JSON.parse(JSON.stringify(this.props.dataStore.getData()))
+        const user = [
+            {name:"dd"},
+            {name:"dddd"}
+        ]
         //let $topic = document.querySelector('#')
         return (
             <ListLayout>
@@ -34,65 +56,23 @@ class ListPage extends Component {
                         </button>
                     ))}
                 </CategoryLayout>
-                <ListViewLayout>
+                {dataList.map(data=>(
+                    <ListViewLayout>
                     <MainLayout>
                         <Link to="/listRead">
-                            <ListComponent></ListComponent>
+                            <ListComponent content={data}></ListComponent>
                         </Link>
                     </MainLayout>
-
                     <MainLayout>
-                        <p>카테고리</p>
-                        <h2>제목</h2>
-                        <h4>내용</h4>
-                        <h5>{dataList[0].id}</h5>
-                        <div className="row">
-                            <FaEye></FaEye>
-                            <h5>175</h5>
-                            <FaRegThumbsUp></FaRegThumbsUp>
-                            <h5>1</h5>
-                            <BsChatDots></BsChatDots>
-                            <h5>2</h5>
-                            <h5 className="icon">2시간</h5>
-                            <BsBookmark className="bookMark"></BsBookmark>
-                        </div>
+                        <Link to="/listRead">
+                            <ListComponent content={data}></ListComponent>
+                        </Link>
                     </MainLayout>
                 </ListViewLayout>
-                <ListViewLayout>
-                    <MainLayout>
-                        <p>카테고리</p>
-                        <h2>제목</h2>
-                        <h4>내용</h4>
-                        <h5>글쓴이</h5>
-                        <div className="row">
-                            <FaEye></FaEye>
-                            <h5>175</h5>
-                            <FaRegThumbsUp></FaRegThumbsUp>
-                            <h5>1</h5>
-                            <BsChatDots></BsChatDots>
-                            <h5>2</h5>
-                            <h5 className="icon">2시간</h5>
-                            <BsBookmark className="bookMark"></BsBookmark>
-                        </div>
-                    </MainLayout>
-                    <MainLayout>
-                        <p>카테고리</p>
-                        <h2>제목</h2>
-                        <h4>내용</h4>
-                        <h5>글쓴이</h5>
-                        <div className="row">
-                            <FaEye></FaEye>
-                            <h5>175</h5>
-                            <FaRegThumbsUp></FaRegThumbsUp>
-                            <h5>1</h5>
-                            <BsChatDots></BsChatDots>
-                            <h5>2</h5>
-                            <h5 className="icon">2시간</h5>
-                            <BsBookmark className="bookMark"></BsBookmark>
-                        </div>
-                    </MainLayout>
-                </ListViewLayout>
-            </ListLayout>
+                )
+                    
+                )}
+            </ListLayout>   
         )
     }
 }
@@ -112,6 +92,7 @@ const MainLayout = styled.div`
     flex: 1;
     border: 1px solid gray;
     height: 180px;
+    a {text-decoration: none; color:black;}
     p {
         display: flex;
         margin-left: 5px;

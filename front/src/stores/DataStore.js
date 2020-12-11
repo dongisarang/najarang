@@ -13,31 +13,34 @@ export default class DataStore {
     like_count: "2",
     hit_count: "2"
 
-},
-{
-    id: "",
-    title: "",
-    content: "",
-    created: "",
+  },
+  {
+    id: "example1",
+    title: "아아아",
+    content: "으으으",
+    created: "2020-11-15",
     deleted: "",
-    user_id: "",
-    topic_id: "",
-    like_count: "",
-    hit_count: ""
+    user_id: "example1",
+    topic_id: "example2",
+    like_count: "3",
+    hit_count: "3"
 
 },
 {
-    id: "",
-    title: "",
-    content: "",
-    created: "",
+    id: "example2",
+    title: "아아아아ㅣ아아",
+    content: "으으으으으으으으",
+    created: "2020-11-15",
     deleted: "",
-    user_id: "",
-    topic_id: "",
-    like_count: "",
-    hit_count: ""
+    user_id: "example2",
+    topic_id: "example3",
+    like_count: "3",
+    hit_count: "3"
 
 }];
+@action getData = ()=>{
+  return this.dataList;
+}
   @action addTopic = (data) =>{
     const len = this.topic.length;
     this.topic[len] = data.name;
