@@ -24,18 +24,18 @@ public class Board extends BaseTime{
     private String title;
     @Column()
     private String content;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "topic_id")
-    private Long topicId;
-    @Column(name = "topic_name")
-    private String topicName;
-    @Column(name = "like_count")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TOPIC_ID")
+    private Topic topic;
+    @Column(name = "LIKE_COUNT")
     private Long likeCount;
-    @Column(name = "hit_count")
+    @Column(name = "HIT_COUNT")
     private Long hitCount;
 
     public BoardDTO toDTO(){
-        return new BoardDTO(this.id, this.title, this.content, this.userId, this.topicId, this.topicName, this.likeCount, this.hitCount);
+        return new BoardDTO(this.id, this.title, this.content, this.user, this.topic, this.likeCount, this.hitCount);
     }
 }

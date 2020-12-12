@@ -2,6 +2,8 @@ package com.najarang.back.dto;
 
 import com.najarang.back.entity.BaseTime;
 import com.najarang.back.entity.Board;
+import com.najarang.back.entity.Topic;
+import com.najarang.back.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +16,8 @@ public class BoardDTO extends BaseTime {
     private Long id;
     private String title;
     private String content;
-    private Long userId;
-    private Long topicId;
-    private String topicName;
+    private User user;
+    private Topic topic;
     private Long likeCount;
     private Long hitCount;
 
@@ -25,9 +26,8 @@ public class BoardDTO extends BaseTime {
         this.id = board.getId();
         this.title = board.getTitle();
         this.content = board.getContent();
-        this.userId = board.getUserId();
-        this.topicId = board.getTopicId();
-        this.topicName = board.getTopicName();
+        this.user = board.getUser();
+        this.topic = board.getTopic();
         this.likeCount = board.getLikeCount();
         this.hitCount = board.getHitCount();
     }
@@ -37,9 +37,8 @@ public class BoardDTO extends BaseTime {
                 .id(id)
                 .title(title)
                 .content(content)
-                .userId(userId)
-                .topicId(topicId)
-                .topicName(topicName)
+                .user(user)
+                .topic(topic)
                 .likeCount(likeCount)
                 .hitCount(hitCount)
                 .build();
