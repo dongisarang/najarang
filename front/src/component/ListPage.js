@@ -6,72 +6,59 @@ import { FaEye } from "react-icons/fa";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
-import { observer, inject } from "mobx-react";
+import useStores from "../hooks/useStores";
+import { useObserver } from "mobx-react";
 import ListComponent from "./ListComponent";
-@inject("topic")
-@inject("currentTopic")
-@inject("dataStore")
-class ListPage extends Component {
-  constructor(props) {
-    super(props);
-    this.addCurrentTopic = this.addCurrentTopic.bind(this);
-  }
-  addCurrentTopic(item) {
-    this.props.currentTopic.setCurrentTopic(item);
-  }
-  replyRender() {
-    for (let i = 0; i < 5; i++) {
-      return (
-        <ListViewLayout>
-          <MainLayout
-            onClick={() => {
-              console.log("ㅎㅇㅎㅇ");
-            }}
-          >
-            <Link to="/listRead">
-              <ListComponent></ListComponent>
-            </Link>
-          </MainLayout>
-          <MainLayout>
-            <Link to="/listRead">
-              <ListComponent></ListComponent>
-            </Link>
-          </MainLayout>
-        </ListViewLayout>
-      );
-    }
-  }
+const ListPage = () => {
+  const { contentStore } = useStores();
+  const addCurrentTopic = (item) => {
+    //this.props.currentTopic.setCurrentTopic(item);
+  };
   //토픽에 애초에 본인이 선택한 토픽만 나오도록 해야함
-  render() {
-    let list = [...this.props.topic.topic];
-    let dataList = JSON.parse(JSON.stringify(this.props.dataStore.getData()));
-    const user = [{ name: "dd" }, { name: "dddd" }];
-    //let $topic = document.querySelector('#')
+
+  //let list = [...this.props.topic.topic];
+  let list = contentStore.topic;
+  let dataList = JSON.parse(JSON.stringify(contentStore.getData()));
+  const user = [
+    {
+      name: "dd",
+    },
+    {
+      name: "dddd",
+    },
+  ];
+  //let $topic = document.querySelector('#')
+  return useObserver(() => {
     return (
       <ListLayout>
         <CategoryLayout>
+          {" "}
           {list.map((item, index) => (
-            <button onClick={() => this.addCurrentTopic(item)}>{item}</button>
-          ))}
-        </CategoryLayout>
+            <button onClick={() => this.addCurrentTopic(item)}> {item} </button>
+          ))}{" "}
+        </CategoryLayout>{" "}
         {dataList.map((data, index) => (
           <ListViewLayout>
             <MainLayout>
               <Link to="/listRead">
-                <ListComponent content={data} index={index}></ListComponent>
-              </Link>
-            </MainLayout>
+                <ListComponent content={data} index={index}>
+                  {" "}
+                </ListComponent>{" "}
+              </Link>{" "}
+            </MainLayout>{" "}
             <MainLayout>
               <Link to="/listRead">
-                <ListComponent content={data} index={index}></ListComponent>
-              </Link>
-            </MainLayout>
+                <ListComponent content={data} index={index}>
+                  {" "}
+                </ListComponent>{" "}
+              </Link>{" "}
+            </MainLayout>{" "}
           </ListViewLayout>
-        ))}
+        ))}{" "}
       </ListLayout>
     );
-  }
-}
+  });
+};
 const ListLayout = styled.div`
   display: flex;
   flex-direction: column;

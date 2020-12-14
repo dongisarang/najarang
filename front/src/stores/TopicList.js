@@ -1,4 +1,7 @@
-import { observable, action } from "mobx";
+import {
+  observable,
+  action
+} from "mobx";
 //회원가입할때 쓰는 스토어
 export default class TopicList {
   //@observable topic = [];
