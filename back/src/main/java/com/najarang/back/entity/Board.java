@@ -24,10 +24,10 @@ public class Board extends BaseTime{
     private String title;
     @Column()
     private String content;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "TOPIC_ID")
     private Topic topic;
     @Column(name = "LIKE_COUNT")
