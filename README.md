@@ -2,3 +2,4 @@
 
 # najarang
 자랑자랑
+ [API 명세](https://github.com/dongisarang/najarang/wiki/najarang-api)
