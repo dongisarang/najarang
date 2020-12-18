@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./back
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,8 +20,10 @@ jobs:
           java-version: 11
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+        working-directory: ${{ env.working-directory }}
       - name: Build with Gradle
         run: ./gradlew build
+        working-directory: ${{ env.working-directory }}
 
       - name: Deliver File
         uses: appleboy/scp-action@master
@@ -28,7 +32,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: "build/libs/*.jar"
+          source: "back/build/libs/*.jar"
           target: "~/apps/najarang"
 
       - name: Deploy
