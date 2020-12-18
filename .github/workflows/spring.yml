@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-              SOURCE_DIR=~/apps/najarang/build/libs
+              SOURCE_DIR=~/apps/najarang/back/build/libs
               FILE_NAME=`find $SOURCE_DIR/*.jar -printf "%f\n"`
               
               echo "#### change directory to $SOURCE_DIR ####"
