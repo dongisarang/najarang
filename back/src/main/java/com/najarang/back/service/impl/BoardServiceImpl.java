@@ -49,6 +49,6 @@ public class BoardServiceImpl implements BoardService {
 
     public CommonResult delete(long id) {
         boardJpaRepo.deleteById(id);
-        return responseService.getSuccessResult(String.valueOf(id));
+        return responseService.getSuccessResult();
     }
 }

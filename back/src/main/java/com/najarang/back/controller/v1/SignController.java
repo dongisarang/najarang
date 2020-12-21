@@ -24,12 +24,12 @@ public class SignController {
         User loginUser = userService.signin(user);
         String token = jwtTokenProvider.createToken(user.getEmail() + "!!!" + user.getProvider());
 //        String token = jwtService.create("member", loginUser, "user");
-        return responseService.getSuccessResult(token);
+        return responseService.getSingleResult(token);
     }
 
     @PostMapping(path = "/signup")
     public CommonResult signup(@RequestBody UserDTO user) {
         User loginUser = userService.signup(user);
-        return responseService.getSuccessResult("success");
+        return responseService.getSuccessResult();
     }
 }

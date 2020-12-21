@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 public class ResponseService {
 
     public enum CommonResponse {
-        SUCCESS(0, "success"),
-        FAIL(-1, "fail");
+        SUCCESS(200, "success");
         int code;
         String msg;
         CommonResponse(int code, String msg) {
@@ -29,7 +28,7 @@ public class ResponseService {
     // 단일건 결과를 처리하는 메소드
     public <T> SingleResult<T> getSingleResult(T data) {
         SingleResult<T> result = new SingleResult<>();
-        result.setData(data);
+        result.setResult(data);
         setSuccessResult(result);
         return result;
     }
@@ -47,18 +46,16 @@ public class ResponseService {
     }
 
     // 성공 결과만 처리하는 메소드
-    public CommonResult getSuccessResult(String msg) {
+    public CommonResult getSuccessResult() {
         CommonResult result = new CommonResult();
-        result.setResult(true);
         result.setCode(200);
-        result.setMsg(msg);
+        result.setMsg("success");
         return result;
     }
 
     // 실패 결과만 처리하는 메소드
     public CommonResult getFailResult(int code, String msg) {
         CommonResult result = new CommonResult();
-        result.setResult(false);
         result.setCode(code);
         result.setMsg(msg);
         return result;
@@ -66,7 +63,6 @@ public class ResponseService {
 
     // 결과 모델에 api 요청 성공 데이터를 세팅해주는 메소드
     private void setSuccessResult(CommonResult result) {
-        result.setResult(true);
         result.setCode(CommonResponse.SUCCESS.getCode());
         result.setMsg(CommonResponse.SUCCESS.getMsg());
     }

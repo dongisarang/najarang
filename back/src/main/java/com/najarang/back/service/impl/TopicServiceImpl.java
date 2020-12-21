@@ -41,6 +41,6 @@ public class TopicServiceImpl implements TopicService {
 
     public CommonResult delete(long id) {
         topicJpaRepo.deleteById(id);
-        return responseService.getSuccessResult(String.valueOf(id));
+        return responseService.getSuccessResult();
     }
 }
