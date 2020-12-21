@@ -1,6 +1,7 @@
 package com.najarang.back.controller.v1;
 
 import com.najarang.back.dto.BoardDTO;
+import com.najarang.back.dto.TopicDTO;
 import com.najarang.back.entity.Board;
 import com.najarang.back.entity.User;
 import com.najarang.back.model.response.CommonResult;

@@ -1,9 +1,6 @@
 package com.najarang.back.advice;
 
-import com.najarang.back.advice.exception.CBoardNotFoundException;
-import com.najarang.back.advice.exception.CUnauthorizedException;
-import com.najarang.back.advice.exception.CUserAlreadyExistException;
-import com.najarang.back.advice.exception.CUserNotFoundException;
+import com.najarang.back.advice.exception.*;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.service.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -58,5 +55,11 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected CommonResult boardNotFoundException(HttpServletRequest request, CUserNotFoundException e) {
         return responseService.getFailResult(404, "게시글 정보가 없습니다.");
+    }
+
+    @ExceptionHandler(CTopicNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected CommonResult topicNotFoundException(HttpServletRequest request, CUserNotFoundException e) {
+        return responseService.getFailResult(404, "토픽 정보가 없습니다.");
     }
 }

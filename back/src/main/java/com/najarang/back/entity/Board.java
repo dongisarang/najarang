@@ -36,6 +36,7 @@ public class Board extends BaseTime{
     private Long hitCount;
 
     public BoardDTO toDTO(){
-        return new BoardDTO(this.id, this.title, this.content, this.user, this.topic, this.likeCount, this.hitCount);
+        Board board = new Board(this.id, this.title, this.content, this.user, this.topic, this.likeCount, this.hitCount);
+        return new BoardDTO(board);
     }
 }

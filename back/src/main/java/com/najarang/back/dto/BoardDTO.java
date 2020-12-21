@@ -20,6 +20,7 @@ public class BoardDTO extends BaseTime {
     private Topic topic;
     private Long likeCount;
     private Long hitCount;
+    private Long topicId;
 
     @Builder
     public BoardDTO(Board board){
