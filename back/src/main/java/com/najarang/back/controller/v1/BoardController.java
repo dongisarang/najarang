@@ -7,12 +7,14 @@ import com.najarang.back.entity.User;
 import com.najarang.back.model.response.CommonResult;
 import com.najarang.back.model.response.ListResult;
 import com.najarang.back.model.response.SingleResult;
+import com.najarang.back.security.CustomUserDetails;
 import com.najarang.back.service.BoardService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -33,13 +35,17 @@ public class BoardController {
     }
 
     @PostMapping(value = "/board")
-    public SingleResult<Board> save(@RequestBody BoardDTO board) {
+    public SingleResult<Board> save(@AuthenticationPrincipal CustomUserDetails customUserDetail, @RequestBody BoardDTO board) {
+        board.setUser(customUserDetail.getUser());
         return boardService.save(board);
     }
 
     @PutMapping(value = "/board/{id}")
-    public SingleResult<Board> modify(@RequestBody BoardDTO board, @PathVariable long id) {
+    public SingleResult<Board> modify(@AuthenticationPrincipal CustomUserDetails customUserDetail, @RequestBody BoardDTO board, @PathVariable long id) {
+
         board.setId(id);
+        board.setUser(customUserDetail.getUser());
+
         return boardService.modify(board);
     }
 
