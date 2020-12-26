@@ -32,11 +32,13 @@ const ListPage = () => {
     return (
       <ListLayout>
         <CategoryLayout>
-          {" "}
           {list.map((item, index) => (
-            <button onClick={() => this.addCurrentTopic(item)}> {item} </button>
-          ))}{" "}
-        </CategoryLayout>{" "}
+            <button onClick={() => this.addCurrentTopic(item)}>
+              {" "}
+              {item.name}{" "}
+            </button>
+          ))}
+        </CategoryLayout>
         {dataList.map((data, index) => (
           <ListViewLayout>
             <MainLayout>

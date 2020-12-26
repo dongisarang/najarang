@@ -1,21 +1,52 @@
 import styled from "styled-components";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { observer, inject } from "mobx-react";
 import useStores from "../hooks/useStores";
 import { useObserver } from "mobx-react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 const CreateContent = () => {
-  const { contentStore } = useStores();
+  const { contentStore, UserStore } = useStores();
+  const [content, setContent] = useState("");
+  const [topic, setTopic] = useState("");
+  const [title, setTitle] = useState("");
+
   const handleChange = (e) => {
     contentStore.setSelectTopic(e.target.value);
+    setTopic(e.target.value);
     console.log(e.target.value);
+  };
+  const handleContent = (e) => {
+    setContent(e.target.value);
+  };
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
   };
   const handleCreate = () => {
     //TODO: 내용 등록할때
+    const queryObj = {
+      title: title,
+      content: content,
+      topicId: topic,
+    };
+    //console.log("content: ", queryObj);
+    const token = UserStore.getUserToken();
+    try {
+      const response = axios.post("/board", queryObj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.data.msg === "success") {
+        alert("성공!");
+      }
+    } catch (error) {
+      console.log("createContent fail", error);
+    }
   };
   return useObserver(() => {
     return (
@@ -27,21 +58,22 @@ const CreateContent = () => {
             onChange={handleChange}
           >
             {contentStore.topic.map((topic) => {
-              return <MenuItem value={topic}>{topic}</MenuItem>;
+              return <MenuItem value={topic.id}>{topic.name}</MenuItem>;
             })}
-            {/* <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem> */}
           </Select>
         </SelectLayout>
-        <TextField id="standard-basic" label="제목을 입력해주세요"></TextField>
+        <TextField
+          id="standard-basic"
+          label="제목을 입력해주세요"
+          onChange={handleTitle}
+        ></TextField>
 
         <TextField
           id="outlined-multiline-static"
           label="내용을 입력해주세요."
           multiline
           rowsMax={20}
-          onChange={handleChange}
+          onChange={handleContent}
           variant="outlined"
           style={{ height: "500px" }}
         />

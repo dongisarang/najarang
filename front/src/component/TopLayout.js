@@ -78,10 +78,10 @@ const TopLayout = () => {
         </Link>
 
         <TopicCircleLayout>
-          {contentStore.topic.map((name) => {
+          {contentStore.topic.map((topic) => {
             return (
               <Link to="/list">
-                <TopicCircle>{name}</TopicCircle>
+                <TopicCircle>{topic.name}</TopicCircle>
               </Link>
             );
           })}

@@ -48,6 +48,7 @@ const KakaoSignUp = ({ history }) => {
       const response = await axios.post("/signin", queryObj);
       if (response.data.msg === "success") {
         UserStore.setLogin(true);
+        UserStore.setUserToken(response.data.result);
         history.push("/");
       }
       console.log("response: ", response);
