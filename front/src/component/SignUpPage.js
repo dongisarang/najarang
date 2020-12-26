@@ -1,100 +1,173 @@
 import styled from "styled-components";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import { observer, inject } from "mobx-react";
 import { Form, Input, Button, Checkbox } from "antd";
 import axios from "axios";
-@inject("topic")
-@observer
-class SignUpPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: [
-        { name: "취미", id: 1 },
-        { name: "소확행", id: 2 },
-        { name: "월급루팡", id: 3 },
-      ],
-      nick: "",
-    };
-  }
-  onSelect = (selectedList, selectedItem) => {
-    this.props.topic.addTopic(selectedItem);
-    this.props.topic.setSelectTopic(selectedItem);
+import useStores from "../hooks/useStores";
+// @inject("topic")
+// @observer
+const SignUpPage = () => {
+  const { contentStore, UserStore } = useStores();
+  const [nick, setNick] = useState("");
+  const options = [
+    { name: "취미", id: 1 },
+    { name: "소확행", id: 2 },
+    { name: "월급루팡", id: 3 },
+  ];
+
+  const onSelect = (selectedList, selectedItem) => {
+    contentStore.addTopic(selectedItem);
+    contentStore.setSelectTopic(selectedItem);
   };
-  handleOk = () => {
-    let interestedTopic = this.props.topic.getTopic();
+  const handleOk = () => {
+    let interestedTopic = contentStore.getTopic();
     interestedTopic = JSON.stringify(interestedTopic);
     // form.getFieldValue("usernick");
     const queryObj = {
       interestedTopic: interestedTopic,
-      nickname: this.state.nick,
-      email: this.props.topic.getUserEmail(),
+      nickname: nick,
+      email: contentStore.getUserEmail(),
       provider: "kakao",
     };
     axios.post("/signup", queryObj);
-    // fetch(" https://najarang.tk/api/signup", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(queryObj),
-    // })
-    //   // .then(response => console.log("response"))
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
   };
-  onRemove = (selectedList, removedItem) => {};
-  onChange = (e) => {
-    this.setState({ nick: e.target.value });
-    console.log(this.state.nick);
+  const onRemove = (selectedList, removedItem) => {};
+  const onChange = (e) => {
+    //this.setState({ nick: e.target.value });
+    setNick(e.target.value);
+    console.log(nick);
   };
-  render() {
-    return (
-      <Layout>
-        <AliasLayout>
-          <FormComponent>
-            <Form.Item
-              label="별명"
-              name="usernick"
-              style={{ margin: "0rem 0rem 0rem 0rem 10rem" }}
-              //   rules={[
-              //     { required: true, message: "Please input your username!" },
-              //   ]}
-            >
-              <InputComponent onChange={this.onChange}></InputComponent>
-            </Form.Item>
-          </FormComponent>
+  return (
+    <Layout>
+      <AliasLayout>
+        <FormComponent>
+          <Form.Item
+            label="별명"
+            name="usernick"
+            style={{ margin: "0rem 0rem 0rem 0rem 10rem" }}
+            //   rules={[
+            //     { required: true, message: "Please input your username!" },
+            //   ]}
+          >
+            <InputComponent onChange={onChange}></InputComponent>
+          </Form.Item>
+        </FormComponent>
 
-          {/* <div>별명</div>
-          <input
-            placeholder="내용을 입력해주세요"
-            type="text"
-            className="form-control"
-          ></input> */}
-        </AliasLayout>
-        <InterestTopicLayout>
-          <div>관심 토픽 설정</div>
-        </InterestTopicLayout>
-        <MultiSelectLayout>
-          <Multiselect
-            options={this.state.options} // Options to display in the dropdown
-            selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-            onSelect={this.onSelect} // Function will trigger on select event
-            onRemove={this.onRemove} // Function will trigger on remove event
-            displayValue="name" // Property name to display in the dropdown options
-          />
-        </MultiSelectLayout>
-        <NextButtonLayout>
-          <button onClick={this.handleOk}>다음</button>
-        </NextButtonLayout>
-      </Layout>
-    );
-  }
-}
+        {/* <div>별명</div>
+        <input
+          placeholder="내용을 입력해주세요"
+          type="text"
+          className="form-control"
+        ></input> */}
+      </AliasLayout>
+      <InterestTopicLayout>
+        <div>관심 토픽 설정</div>
+      </InterestTopicLayout>
+      <MultiSelectLayout>
+        <Multiselect
+          options={options} // Options to display in the dropdown
+          // selectedValues={selectedValue} // Preselected value to persist in dropdown
+          onSelect={onSelect} // Function will trigger on select event
+          onRemove={onRemove} // Function will trigger on remove event
+          displayValue="name" // Property name to display in the dropdown options
+        />
+      </MultiSelectLayout>
+      <NextButtonLayout>
+        <button onClick={handleOk}>다음</button>
+      </NextButtonLayout>
+    </Layout>
+  );
+};
+// class SignUpPage extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       options: [
+//         { name: "취미", id: 1 },
+//         { name: "소확행", id: 2 },
+//         { name: "월급루팡", id: 3 },
+//       ],
+//       nick: "",
+//     };
+//   }
+//   onSelect = (selectedList, selectedItem) => {
+//     this.props.topic.addTopic(selectedItem);
+//     this.props.topic.setSelectTopic(selectedItem);
+//   };
+//   handleOk = () => {
+//     let interestedTopic = this.props.topic.getTopic();
+//     interestedTopic = JSON.stringify(interestedTopic);
+//     // form.getFieldValue("usernick");
+//     const queryObj = {
+//       interestedTopic: interestedTopic,
+//       nickname: this.state.nick,
+//       email: this.props.topic.getUserEmail(),
+//       provider: "kakao",
+//     };
+//     axios.post("/signup", queryObj);
+//     // fetch(" https://najarang.tk/api/signup", {
+//     //   method: "POST",
+//     //   headers: {
+//     //     "Content-type": "application/json",
+//     //   },
+//     //   body: JSON.stringify(queryObj),
+//     // })
+//     //   // .then(response => console.log("response"))
+//     //   .then((response) => response.json())
+//     //   .then((response) => {
+//     //     console.log(response);
+//     //   });
+//   };
+//   onRemove = (selectedList, removedItem) => {};
+//   onChange = (e) => {
+//     this.setState({ nick: e.target.value });
+//     console.log(this.state.nick);
+//   };
+//   render() {
+//     return (
+//       <Layout>
+//         <AliasLayout>
+//           <FormComponent>
+//             <Form.Item
+//               label="별명"
+//               name="usernick"
+//               style={{ margin: "0rem 0rem 0rem 0rem 10rem" }}
+//               //   rules={[
+//               //     { required: true, message: "Please input your username!" },
+//               //   ]}
+//             >
+//               <InputComponent onChange={this.onChange}></InputComponent>
+//             </Form.Item>
+//           </FormComponent>
+
+//           {/* <div>별명</div>
+//           <input
+//             placeholder="내용을 입력해주세요"
+//             type="text"
+//             className="form-control"
+//           ></input> */}
+//         </AliasLayout>
+//         <InterestTopicLayout>
+//           <div>관심 토픽 설정</div>
+//         </InterestTopicLayout>
+//         <MultiSelectLayout>
+//           <Multiselect
+//             options={this.state.options} // Options to display in the dropdown
+//             selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+//             onSelect={this.onSelect} // Function will trigger on select event
+//             onRemove={this.onRemove} // Function will trigger on remove event
+//             displayValue="name" // Property name to display in the dropdown options
+//           />
+//         </MultiSelectLayout>
+//         <NextButtonLayout>
+//           <button onClick={this.handleOk}>다음</button>
+//         </NextButtonLayout>
+//       </Layout>
+//     );
+//   }
+// }
 const Layout = styled.div`
   display: flex;
   flex-direction: column;

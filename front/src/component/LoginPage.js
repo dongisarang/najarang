@@ -13,12 +13,13 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import SignUpPage from "./SignUpPage";
+import axios from "axios";
 // @inject("topic")
 // @observer
 const KakaoSignUp = ({ history }) => {
   const { contentStore, UserStore } = useStores();
   const [login, setLogin] = useState([]);
-  const responseKaKao = (res) => {
+  const responseKaKao = async (res) => {
     // this.setState({
     //   id: res.profile.id,
     //   provider: "kakao",
@@ -28,7 +29,7 @@ const KakaoSignUp = ({ history }) => {
       success: (auth) => {
         console.log("success login");
         contentStore.setUserEmail(res.profile.kakao_account.email);
-        if (UserStore.createAccount) history.push("/signup");
+        //if (UserStore.createAccount) history.push("/signup");
       },
       fail: (err) => {
         console.log("login fail");
@@ -36,6 +37,20 @@ const KakaoSignUp = ({ history }) => {
     });
     contentStore.setUserEmail(res.profile.kakao_account.email);
     console.log("data: ", res, "  ", contentStore.getUserEmail());
+    if (UserStore.createAccount) {
+      history.push("/signup");
+    } else {
+      //로그인할때
+      const queryObj = {
+        email: contentStore.getUserEmail(),
+        provider: "kakao",
+      };
+      const response = await axios.post("/signin", queryObj);
+      if (response.data.msg === "success") {
+        history.push("/");
+      }
+      console.log("response: ", response);
+    }
   };
 
   const responseFail = (err) => {
