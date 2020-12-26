@@ -9,54 +9,54 @@ import styled from "styled-components";
 import SignUpPage from "./component/SignUpPage";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import useStores from "./hooks/useStores";
-import { observer, inject } from "mobx-react";
-// const AppContext = createContext();
-// @inject("topic")
+import { observer, useObserver } from "mobx-react";
 const App = () => {
   const { UserStore } = useStores();
   const handleSignClick = () => {
     UserStore.setCreateAccount(true);
   };
-  return (
-    <Router>
-      <Layout>
-        <HomeLayout>
-          <Link to="/">HOME</Link>
-        </HomeLayout>
-        <Link to="/login">
-          <Btn onClick={handleSignClick}>회원가입</Btn>
-        </Link>
-        <Link to="/login">
-          <Btn>로그인</Btn>
-        </Link>
-      </Layout>
+  return useObserver(() => {
+    return (
+      <Router>
+        <Layout>
+          <HomeLayout>
+            <Link to="/">HOME</Link>
+          </HomeLayout>
+          <Link to="/login">
+            <Btn onClick={handleSignClick}>회원가입</Btn>
+          </Link>
+          <Link to="/login">
+            {UserStore.getLogin() ? <Btn>로그아웃</Btn> : <Btn>로그인</Btn>}
+          </Link>
+        </Layout>
 
-      <Route
-        path="/"
-        render={(props) => {
-          return <TopLayout />;
-        }}
-        exact={true}
-      />
-      <Route path="/login" component={LoginPage} exact={true} />
-      <Route
-        path="/list"
-        render={(props) => {
-          return <ListPage />;
-        }}
-        exact={true}
-      />
-      <Route path="/signup" component={SignUpPage} exact={true} />
-      <Route path="/createContent" component={CreateContent} exact={true} />
-      <Route
-        path="/listRead"
-        render={(props) => {
-          return <ListRead />;
-        }}
-        exact={true}
-      />
-    </Router>
-  );
+        <Route
+          path="/"
+          render={(props) => {
+            return <TopLayout />;
+          }}
+          exact={true}
+        />
+        <Route path="/login" component={LoginPage} exact={true} />
+        <Route
+          path="/list"
+          render={(props) => {
+            return <ListPage />;
+          }}
+          exact={true}
+        />
+        <Route path="/signup" component={SignUpPage} exact={true} />
+        <Route path="/createContent" component={CreateContent} exact={true} />
+        <Route
+          path="/listRead"
+          render={(props) => {
+            return <ListRead />;
+          }}
+          exact={true}
+        />
+      </Router>
+    );
+  });
 };
 const Layout = styled.div`
   display: flex;
