@@ -4,14 +4,18 @@ import LoginPage from "./component/LoginPage";
 import NaverLogin from "react-naver-login";
 import ListPage from "./component/ListPage";
 import ListRead from "./component/ListRead";
+import CreateContent from "./component/CreateContent";
 import styled from "styled-components";
 import SignUpPage from "./component/SignUpPage";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
-import { observer, inject } from "mobx-react";
-// const AppContext = createContext();
-@inject("topic")
-class App extends Component {
-  render() {
+import useStores from "./hooks/useStores";
+import { observer, useObserver } from "mobx-react";
+const App = () => {
+  const { UserStore } = useStores();
+  const handleSignClick = () => {
+    UserStore.setCreateAccount(true);
+  };
+  return useObserver(() => {
     return (
       <Router>
         <Layout>
@@ -19,10 +23,10 @@ class App extends Component {
             <Link to="/">HOME</Link>
           </HomeLayout>
           <Link to="/login">
-            <Btn>회원가입</Btn>
+            <Btn onClick={handleSignClick}>회원가입</Btn>
           </Link>
           <Link to="/login">
-            <Btn>로그인</Btn>
+            {UserStore.getLogin() ? <Btn>로그아웃</Btn> : <Btn>로그인</Btn>}
           </Link>
         </Layout>
 
@@ -42,6 +46,7 @@ class App extends Component {
           exact={true}
         />
         <Route path="/signup" component={SignUpPage} exact={true} />
+        <Route path="/createContent" component={CreateContent} exact={true} />
         <Route
           path="/listRead"
           render={(props) => {
@@ -51,8 +56,8 @@ class App extends Component {
         />
       </Router>
     );
-  }
-}
+  });
+};
 const Layout = styled.div`
   display: flex;
   flex-direction: row;
