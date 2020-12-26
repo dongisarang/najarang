@@ -8,10 +8,15 @@ import CreateContent from "./component/CreateContent";
 import styled from "styled-components";
 import SignUpPage from "./component/SignUpPage";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import useStores from "./hooks/useStores";
 import { observer, inject } from "mobx-react";
 // const AppContext = createContext();
 // @inject("topic")
 const App = () => {
+  const { UserStore } = useStores();
+  const handleSignClick = () => {
+    UserStore.setCreateAccount(true);
+  };
   return (
     <Router>
       <Layout>
@@ -19,7 +24,7 @@ const App = () => {
           <Link to="/">HOME</Link>
         </HomeLayout>
         <Link to="/login">
-          <Btn>회원가입</Btn>
+          <Btn onClick={handleSignClick}>회원가입</Btn>
         </Link>
         <Link to="/login">
           <Btn>로그인</Btn>

@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled from "styled-components";
 import googleLogin from "./googleLogin";
 //import { StyledText } from '../style';
 import KaKaoLogin from "react-kakao-login";
 import { observer, inject } from "mobx-react";
 import GoogleLogin from "react-google-login";
+import useStores from "../hooks/useStores";
 import {
   Link,
   Route,
@@ -12,45 +13,35 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import SignUpPage from "./SignUpPage";
-@inject("topic")
-@observer
-class KakaoSignUp extends Component {
-  // constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //         data: 'kakao'
-  //     }
-  // }
-
-  responseKaKao = (res) => {
-    this.setState({
-      id: res.profile.id,
-      provider: "kakao",
-    });
+// @inject("topic")
+// @observer
+const KakaoSignUp = ({ history }) => {
+  const { contentStore, UserStore } = useStores();
+  const [login, setLogin] = useState([]);
+  const responseKaKao = (res) => {
+    // this.setState({
+    //   id: res.profile.id,
+    //   provider: "kakao",
+    // });
     res.provider = "kakao";
-    // fetch('http://localhost:3000/oauth')
-    //     .then(function (response) {
-    //         return response.json();
-    //     })
     Kakao.Auth.login({
       success: (auth) => {
         console.log("success login");
-        this.props.topic.setUserEmail(res.profile.kakao_account.email);
-        // <Redirect to="/signup"></Redirect>;
-        this.props.history.push("/signup");
+        contentStore.setUserEmail(res.profile.kakao_account.email);
+        if (UserStore.createAccount) history.push("/signup");
       },
       fail: (err) => {
         console.log("login fail");
       },
     });
-    this.props.topic.setUserEmail(res.profile.kakao_account.email);
-    console.log("data: ", res, "  ", this.props.topic.getUserEmail());
+    contentStore.setUserEmail(res.profile.kakao_account.email);
+    console.log("data: ", res, "  ", contentStore.getUserEmail());
   };
 
-  responseFail = (err) => {
+  const responseFail = (err) => {
     //alert("아아아");
   };
-  responseGoogle = (response) => {
+  const responseGoogle = (response) => {
     console.log(response);
     response.provider = "google";
     fetch("http://localhost:3000/oauth").then(function (response) {
@@ -58,43 +49,123 @@ class KakaoSignUp extends Component {
     });
     //여기서 access_token=XX&provider=kakao 이런식으로 처리해서 서버로 보내주기
   };
-  render() {
-    return (
-      <div>
-        <MainLayout>
-          <h1> 로그인 방식을 선택해 주세요 </h1>
-        </MainLayout>
-        <MiddleLayout>
-          <div className="content">
-            <KaKaoBtn
-              jsKey={"91e67ebb3e98ff0accfa0539dbe9698e"}
-              onSuccess={this.responseKaKao}
-              onFailure={this.responseFail}
-              getProfile={true}
-            >
-              <p> 카카오로 회원가입 </p>
-            </KaKaoBtn>
-            <h6> 카카오로 인증하여 회원가입 </h6>
-          </div>
-        </MiddleLayout>
-        <MiddleLayout>
-          <div className="content">
-            <GoogleBtn>
-              <GoogleLogin
-                clientId="223281605678-qblodmohj92uq9ju7i1i4k624ui4u8hs.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseFail}
-                cookiePolicy={"single_host_origin"}
-              />
-            </GoogleBtn>
-            <h6> 구글로 인증하여 회원가입 </h6>
-          </div>
-        </MiddleLayout>
-      </div>
-    );
-  }
-}
+
+  return (
+    <div>
+      <MainLayout>
+        <h1> 로그인 방식을 선택해 주세요 </h1>{" "}
+      </MainLayout>{" "}
+      <MiddleLayout>
+        <div className="content">
+          <KaKaoBtn
+            jsKey={"91e67ebb3e98ff0accfa0539dbe9698e"}
+            onSuccess={responseKaKao}
+            onFailure={responseFail}
+            getProfile={true}
+          >
+            <p> 카카오로 회원가입 </p>{" "}
+          </KaKaoBtn>{" "}
+          <h6> 카카오로 인증하여 회원가입 </h6>{" "}
+        </div>{" "}
+      </MiddleLayout>{" "}
+      <MiddleLayout>
+        <div className="content">
+          <GoogleBtn>
+            <GoogleLogin
+              clientId="223281605678-qblodmohj92uq9ju7i1i4k624ui4u8hs.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseFail}
+              cookiePolicy={"single_host_origin"}
+            />{" "}
+          </GoogleBtn>{" "}
+          <h6> 구글로 인증하여 회원가입 </h6>{" "}
+        </div>{" "}
+      </MiddleLayout>{" "}
+    </div>
+  );
+};
+// class KakaoSignUp extends Component {
+//   // constructor(props) {
+//   //     super(props);
+//   //     this.state = {
+//   //         data: 'kakao'
+//   //     }
+//   // }
+
+//   responseKaKao = (res) => {
+//     this.setState({
+//       id: res.profile.id,
+//       provider: "kakao",
+//     });
+//     res.provider = "kakao";
+//     // fetch('http://localhost:3000/oauth')
+//     //     .then(function (response) {
+//     //         return response.json();
+//     //     })
+//     Kakao.Auth.login({
+//       success: (auth) => {
+//         console.log("success login");
+//         this.props.topic.setUserEmail(res.profile.kakao_account.email);
+//         // <Redirect to="/signup"></Redirect>;
+//         this.props.history.push("/signup");
+//       },
+//       fail: (err) => {
+//         console.log("login fail");
+//       },
+//     });
+//     this.props.topic.setUserEmail(res.profile.kakao_account.email);
+//     console.log("data: ", res, "  ", this.props.topic.getUserEmail());
+//   };
+
+//   responseFail = (err) => {
+//     //alert("아아아");
+//   };
+//   responseGoogle = (response) => {
+//     console.log(response);
+//     response.provider = "google";
+//     fetch("http://localhost:3000/oauth").then(function (response) {
+//       return response.json();
+//     });
+//     //여기서 access_token=XX&provider=kakao 이런식으로 처리해서 서버로 보내주기
+//   };
+//   render() {
+//     return (
+//       <div>
+//         <MainLayout>
+//           <h1> 로그인 방식을 선택해 주세요 </h1>
+//         </MainLayout>
+//         <MiddleLayout>
+//           <div className="content">
+//             <KaKaoBtn
+//               jsKey={"91e67ebb3e98ff0accfa0539dbe9698e"}
+//               onSuccess={this.responseKaKao}
+//               onFailure={this.responseFail}
+//               getProfile={true}
+//             >
+//               <p> 카카오로 회원가입 </p>
+//             </KaKaoBtn>
+//             <h6> 카카오로 인증하여 회원가입 </h6>
+//           </div>
+//         </MiddleLayout>
+//         <MiddleLayout>
+//           <div className="content">
+//             <GoogleBtn>
+//               <GoogleLogin
+//                 clientId="223281605678-qblodmohj92uq9ju7i1i4k624ui4u8hs.apps.googleusercontent.com"
+//                 buttonText="Login"
+//                 onSuccess={this.responseGoogle}
+//                 onFailure={this.responseFail}
+//                 cookiePolicy={"single_host_origin"}
+//               />
+//             </GoogleBtn>
+//             <h6> 구글로 인증하여 회원가입 </h6>
+//           </div>
+//         </MiddleLayout>
+//       </div>
+//     );
+//   }
+// }
 const MainLayout = styled.div`
   display: flex;
   justify-content: center;
