@@ -12,9 +12,9 @@ import useStores from "../hooks/useStores";
 // @inject("topic")
 const TopLayout = () => {
   const { contentStore } = useStores();
-  useEffect(()=>{
-  contentStore.setContentList();
-  },[])
+  useEffect(() => {
+    contentStore.setContentList();
+  }, []);
   const List = (data) => {
     data.map((list) => {
       return (
@@ -35,6 +35,9 @@ const TopLayout = () => {
     // });
   };
   const [open, setOpen] = useState(false);
+  const handleClick = (index) => {
+    contentStore.setSelectList(index);
+  };
   return useObserver(() => {
     return (
       <MainLayout>
@@ -64,37 +67,47 @@ const TopLayout = () => {
           <div>핫토픽 리스트</div>
         </HotTopicLayout>
         <ListLayout>
-        {contentStore.contentList?contentStore.contentList.map((list) => {
-            return(
-              <HotTopicListLayout>
-                <Link to="/listRead">
-                  <div>
-                    <p className="topicBox">{list.topic.name}</p>
-                    <p className="topicTitle">{list.title}</p>
-                  </div>
-                </Link>
-              </HotTopicListLayout>
-              
-            )
-          }):null}
+          {contentStore.contentList
+            ? contentStore.contentList.map((list, index) => {
+                return (
+                  <HotTopicListLayout>
+                    <Link to="/listRead">
+                      <div
+                        onClick={() => {
+                          handleClick(index);
+                        }}
+                      >
+                        <p className="topicBox">{list.topic.name}</p>
+                        <p className="topicTitle">{list.title}</p>
+                      </div>
+                    </Link>
+                  </HotTopicListLayout>
+                );
+              })
+            : null}
         </ListLayout>
         <HotTopicLayout>
           <div>핫토픽 리스트</div>
         </HotTopicLayout>
         <ListLayout>
-        {contentStore.contentList?contentStore.contentList.map((list) => {
-            return(
-              <HotTopicListLayout>
-                <Link to="/listRead">
-                  <div>
-                    <p className="topicBox">{list.topic.name}</p>
-                    <p className="topicTitle">{list.title}</p>
-                  </div>
-                </Link>
-              </HotTopicListLayout>
-              
-            )
-          }):null}
+          {contentStore.contentList
+            ? contentStore.contentList.map((list, index) => {
+                return (
+                  <HotTopicListLayout>
+                    <Link to="/listRead">
+                      <div
+                        onClick={() => {
+                          handleClick(index);
+                        }}
+                      >
+                        <p className="topicBox">{list.topic.name}</p>
+                        <p className="topicTitle">{list.title}</p>
+                      </div>
+                    </Link>
+                  </HotTopicListLayout>
+                );
+              })
+            : null}
         </ListLayout>
       </MainLayout>
     );

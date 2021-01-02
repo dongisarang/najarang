@@ -8,49 +8,85 @@ import { BsChatDots } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
 import { observer, inject } from "mobx-react";
 import { AiOutlineClockCircle } from "react-icons/ai";
-@inject("topic")
-@inject("currentTopic")
-@inject("dataStore")
-class ListRead extends Component {
-  constructor(props) {
-    super(props);
-    const dataIndex = this.props.topic.getClickContentIndex();
-    this.content = this.props.dataStore.dataList[dataIndex];
-  }
-  render() {
-    const name = this.props.currentTopic.getCurrentTopic();
-    const title = "안녕하세요";
-    const userName = "티맥스스페이스";
-    const time = "2시간";
-    const view = "83";
-    const replyCnt = "3";
-    const contents = "퇴근하고 싶다";
+import { useObserver } from "mobx-react";
+import useStores from "../hooks/useStores";
+
+const ListRead = () => {
+  const { contentStore, UserStore } = useStores();
+
+  const list = contentStore.getContentList();
+  const index = contentStore.getSelectList();
+  const content = list[index];
+  return useObserver(() => {
     return (
       <PageLayout>
         <CategoryLayout>
-          <span>토픽 {name}</span>
+          <span>토픽</span>
         </CategoryLayout>
         <TitleLayout>
-          <h1>{this.content.title}</h1>
+          <h1>{content.title}</h1>
         </TitleLayout>
         <UserLayout>
-          <span>{this.content.user_id}</span>
+          <span>{content.user_id}</span>
         </UserLayout>
         <TimeLayout>
           <AiOutlineClockCircle></AiOutlineClockCircle>
-          <span>{this.content.created}</span>
+          <span>{content.created}</span>
           <FaEye className="eye"></FaEye>
-          <span>{this.content.hit_count}</span>
+          <span>{content.hit_count}</span>
           <BsChatDots className="reply"></BsChatDots>
-          <span>{this.content.like_count}</span>
+          <span>{content.like_count}</span>
         </TimeLayout>
         <ContentsLayout>
-          <span>{this.content.content}</span>
+          <span>{content.content}</span>
         </ContentsLayout>
       </PageLayout>
     );
-  }
-}
+  });
+};
+// @inject("topic")
+// @inject("currentTopic")
+// @inject("dataStore")
+// class ListRead extends Component {
+//   constructor(props) {
+//     super(props);
+//     const dataIndex = this.props.topic.getClickContentIndex();
+//     this.content = this.props.dataStore.dataList[dataIndex];
+//   }
+//   render() {
+//     const name = this.props.currentTopic.getCurrentTopic();
+//     const title = "안녕하세요";
+//     const userName = "티맥스스페이스";
+//     const time = "2시간";
+//     const view = "83";
+//     const replyCnt = "3";
+//     const contents = "퇴근하고 싶다";
+//     return (
+//       <PageLayout>
+//         <CategoryLayout>
+//           <span>토픽 {name}</span>
+//         </CategoryLayout>
+//         <TitleLayout>
+//           <h1>{this.content.title}</h1>
+//         </TitleLayout>
+//         <UserLayout>
+//           <span>{this.content.user_id}</span>
+//         </UserLayout>
+//         <TimeLayout>
+//           <AiOutlineClockCircle></AiOutlineClockCircle>
+//           <span>{this.content.created}</span>
+//           <FaEye className="eye"></FaEye>
+//           <span>{this.content.hit_count}</span>
+//           <BsChatDots className="reply"></BsChatDots>
+//           <span>{this.content.like_count}</span>
+//         </TimeLayout>
+//         <ContentsLayout>
+//           <span>{this.content.content}</span>
+//         </ContentsLayout>
+//       </PageLayout>
+//     );
+//   }
+// }
 const PageLayout = styled.div`
   display: flex;
   flex-direction: column;

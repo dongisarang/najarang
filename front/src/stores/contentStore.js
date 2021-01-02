@@ -1,5 +1,5 @@
 import { observable } from "mobx";
-import contentRepository from './repositories/contentRepository';
+import contentRepository from "./repositories/contentRepository";
 const contentStore = observable({
   flag: true,
   topic: [
@@ -59,16 +59,23 @@ const contentStore = observable({
       hit_count: "3",
     },
   ],
-  contentList:[],
-  async setContentList(){
+  contentList: [],
+  selectList: "",
+  setSelectList(selectList) {
+    this.selectList = selectList;
+  },
+  getSelectList() {
+    return this.selectList;
+  },
+  async setContentList() {
     const response = await contentRepository.boardsGet();
-    if(response.data.msg ==="success"){
+    if (response.data.msg === "success") {
       this.contentList = response.data.list;
       return true;
     }
     return false;
   },
-  getContentList(){
+  getContentList() {
     return this.contentList;
   },
   getData() {
