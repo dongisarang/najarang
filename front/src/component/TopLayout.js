@@ -14,6 +14,7 @@ const TopLayout = () => {
   const { contentStore } = useStores();
   useEffect(() => {
     contentStore.setContentList();
+    contentStore.setTopicList();
   }, []);
   const List = (data) => {
     data.map((list) => {
@@ -38,6 +39,9 @@ const TopLayout = () => {
   const handleClick = (index) => {
     contentStore.setSelectList(index);
   };
+  const handleTopicClick = (index) => {
+    contentStore.setSelectMainTopic(index);
+  };
   return useObserver(() => {
     return (
       <MainLayout>
@@ -55,10 +59,17 @@ const TopLayout = () => {
         </Link>
 
         <TopicCircleLayout>
-          {contentStore.topic.map((topic) => {
+          {contentStore.topicList.map((topic, index) => {
+            if (index > 3) return <></>;
             return (
               <Link to="/list">
-                <TopicCircle>{topic.name}</TopicCircle>
+                <TopicCircle
+                  onClick={() => {
+                    handleTopicClick(index);
+                  }}
+                >
+                  {topic.name}
+                </TopicCircle>
               </Link>
             );
           })}

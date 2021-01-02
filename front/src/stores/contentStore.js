@@ -61,6 +61,25 @@ const contentStore = observable({
   ],
   contentList: [],
   selectList: "",
+  topicList: [],
+  selectTopic: "",
+  setSelectMainTopic(selectTopic) {
+    this.selectTopic = selectTopic;
+  },
+  getSelectMainTopic() {
+    return this.selectTopic;
+  },
+  async setTopicList() {
+    const response = await contentRepository.topicListGet();
+    if (response.data.msg === "success") {
+      this.topicList = response.data.list;
+      return true;
+    }
+    return false;
+  },
+  getTopicList() {
+    return this.topicList;
+  },
   setSelectList(selectList) {
     this.selectList = selectList;
   },
