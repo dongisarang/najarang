@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import "./TopLayout.css";
 import TopicLayout from "./TopicLayout";
 import NewTopicLayout from "./NewTopicLayout";
@@ -12,35 +12,9 @@ import useStores from "../hooks/useStores";
 // @inject("topic")
 const TopLayout = () => {
   const { contentStore } = useStores();
-  const topic = [];
-  const data = [
-    {
-      topic: "소확횡",
-      title: "오늘도 과자 많이 먹었습니다.",
-    },
-    {
-      topic: "취미",
-      title: "탄천 1시간 넘게",
-    },
-    {
-      topic: "합격",
-      title: "드디어 공무원 시험 합격했어요!!",
-    },
-    {
-      topic: "월루",
-      title: "또 월요일이 왔네요..이번주도 월루해봅시다",
-    },
-  ];
-  const TopicList = () => {
-    // const topicName = this.props.topic.topic;
-    // topicName.forEach((name) => {
-    //   this.topic.push(name);
-    //   console.log(name);
-    // });
-  };
-  const hotTopicList = (props) => {
-    <HotTopicListLayout></HotTopicListLayout>;
-  };
+  useEffect(()=>{
+  contentStore.setContentList();
+  },[])
   const List = (data) => {
     data.map((list) => {
       return (
@@ -90,35 +64,37 @@ const TopLayout = () => {
           <div>핫토픽 리스트</div>
         </HotTopicLayout>
         <ListLayout>
-          {data.map((list) => {
-            return (
+        {contentStore.contentList?contentStore.contentList.map((list) => {
+            return(
               <HotTopicListLayout>
                 <Link to="/listRead">
                   <div>
-                    <p className="topicBox">{list.topic}</p>
+                    <p className="topicBox">{list.topic.name}</p>
                     <p className="topicTitle">{list.title}</p>
                   </div>
                 </Link>
               </HotTopicListLayout>
-            );
-          })}
+              
+            )
+          }):null}
         </ListLayout>
         <HotTopicLayout>
           <div>핫토픽 리스트</div>
         </HotTopicLayout>
         <ListLayout>
-          {data.map((list) => {
-            return (
+        {contentStore.contentList?contentStore.contentList.map((list) => {
+            return(
               <HotTopicListLayout>
                 <Link to="/listRead">
                   <div>
-                    <p className="topicBox">{list.topic}</p>
+                    <p className="topicBox">{list.topic.name}</p>
                     <p className="topicTitle">{list.title}</p>
                   </div>
                 </Link>
               </HotTopicListLayout>
-            );
-          })}
+              
+            )
+          }):null}
         </ListLayout>
       </MainLayout>
     );
