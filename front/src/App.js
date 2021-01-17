@@ -10,6 +10,7 @@ import SignUpPage from "./component/SignUpPage";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import useStores from "./hooks/useStores";
 import { observer, useObserver } from "mobx-react";
+import "antd/dist/antd.css"; // css를 가져온다
 const App = () => {
   const { UserStore } = useStores();
   const handleSignClick = () => {

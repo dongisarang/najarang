@@ -12,6 +12,7 @@ import useStores from "../hooks/useStores";
 // @inject("topic")
 const TopLayout = () => {
   const { contentStore } = useStores();
+  const [write, setWrite] = useState(false);
   useEffect(() => {
     contentStore.setContentList();
     contentStore.setTopicList();
@@ -34,6 +35,7 @@ const TopLayout = () => {
     // this.setState({
     //   isCreateContent: true,
     // });
+    setWrite(true);
   };
   const [open, setOpen] = useState(false);
   const handleClick = (index) => {
@@ -52,11 +54,10 @@ const TopLayout = () => {
             className="form-control"
           ></input>
         </InputLayout>
-        <Link to="/createContent">
-          <BtnLayout>
-            <button onClick={showModal}>자랑글 쓰러 가기</button>
-          </BtnLayout>
-        </Link>
+        {/* <Link to="/createContent"> */}
+        <BtnLayout>
+          <button onClick={showModal}>자랑글 쓰러 가기</button>
+        </BtnLayout>
 
         <TopicCircleLayout>
           {contentStore.topicList.map((topic, index) => {
@@ -120,6 +121,7 @@ const TopLayout = () => {
               })
             : null}
         </ListLayout>
+        <CreateContent visible={write}></CreateContent>
       </MainLayout>
     );
   });

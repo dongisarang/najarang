@@ -1,9 +1,10 @@
-import { observable } from "mobx";
+import {
+  observable
+} from "mobx";
 import contentRepository from "./repositories/contentRepository";
 const contentStore = observable({
   flag: true,
-  topic: [
-    {
+  topic: [{
       name: "취미",
       id: 1,
     },
@@ -20,12 +21,11 @@ const contentStore = observable({
       id: 4,
     },
   ],
-  selectTopic: [],
+  selectTopic: '',
   userEmail: "",
   clickContentIndex: "",
   currentTopic: "",
-  dataList: [
-    {
+  dataList: [{
       id: "example",
       title: "오늘도 즐겁게 월루했습니다.",
       content: "세상에서 제일 즐거운 월루~~",
@@ -106,7 +106,7 @@ const contentStore = observable({
     this.topic[len] = data.name;
   },
   setSelectTopic(selectTopic) {
-    this.selectTopic.push(selectTopic);
+    this.selectTopic = selectTopic;
   },
   getTopic() {
     return this.selectTopic;

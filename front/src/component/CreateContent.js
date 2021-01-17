@@ -8,8 +8,9 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import { Modal } from "antd";
 import Button from "@material-ui/core/Button";
-const CreateContent = () => {
+const CreateContent = ({ visible }) => {
   const { contentStore, UserStore } = useStores();
   const [content, setContent] = useState("");
   const [topic, setTopic] = useState("");
@@ -41,7 +42,7 @@ const CreateContent = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.data.msg === "success") {
+      if (response.msg === "success") {
         alert("성공!");
       }
     } catch (error) {
@@ -50,7 +51,7 @@ const CreateContent = () => {
   };
   return useObserver(() => {
     return (
-      <CreateLayout>
+      <CreateLayout visible={visible}>
         <SelectLayout>
           <Select
             labelId="demo-simple-select-filled-label"
@@ -62,21 +63,24 @@ const CreateContent = () => {
             })}
           </Select>
         </SelectLayout>
-        <TextField
-          id="standard-basic"
-          label="제목을 입력해주세요"
-          onChange={handleTitle}
-        ></TextField>
+        <TextLayout>
+          <TextField
+            id="standard-basic"
+            label="제목을 입력해주세요"
+            onChange={handleTitle}
+          ></TextField>
 
-        <TextField
-          id="outlined-multiline-static"
-          label="내용을 입력해주세요."
-          multiline
-          rowsMax={20}
-          onChange={handleContent}
-          variant="outlined"
-          style={{ height: "500px" }}
-        />
+          <TextField
+            id="outlined-multiline-static"
+            label="내용을 입력해주세요."
+            multiline
+            rowsMax={20}
+            onChange={handleContent}
+            variant="outlined"
+            style={{ height: "500px" }}
+          />
+        </TextLayout>
+
         <ButtonLayout>
           <Button
             style={{ color: "#FFFFFF", background: "#8885a4" }}
@@ -90,7 +94,7 @@ const CreateContent = () => {
     );
   });
 };
-const CreateLayout = styled.div`
+const CreateLayout = styled(Modal)`
   display: flex;
   flex-direction: column;
 `;
@@ -98,6 +102,10 @@ const SelectLayout = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid;
+`;
+const TextLayout = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 const ButtonLayout = styled.div`
   display: flex;
