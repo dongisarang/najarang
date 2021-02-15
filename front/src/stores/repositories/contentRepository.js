@@ -10,6 +10,15 @@ const contentRepository = {
             return false;
         }
     },
+    boardsUpdate: async (boarderId, queryObj) => {
+        try {
+            const response = await axios.put(`/boards/${boarderId}`, queryObj);
+            return response;
+        } catch (error) {
+            throw Error(error);
+            return false;
+        }
+    },
     topicListGet: async () => {
         try {
             const response = await axios.get("/topics");

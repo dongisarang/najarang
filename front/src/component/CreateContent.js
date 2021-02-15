@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import { Modal } from "antd";
 import Button from "@material-ui/core/Button";
-const CreateContent = ({ visible }) => {
+const CreateContent = ({ visible, onCancle }) => {
   const { contentStore, UserStore } = useStores();
   const [content, setContent] = useState("");
   const [topic, setTopic] = useState("");
@@ -26,6 +26,9 @@ const CreateContent = ({ visible }) => {
   };
   const handleTitle = (e) => {
     setTitle(e.target.value);
+  };
+  const handleCancle = () => {
+    onCancle();
   };
   const handleCreate = () => {
     //TODO: 내용 등록할때
@@ -44,6 +47,7 @@ const CreateContent = ({ visible }) => {
       });
       if (response.msg === "success") {
         alert("성공!");
+        onCancle();
       }
     } catch (error) {
       console.log("createContent fail", error);
@@ -51,7 +55,19 @@ const CreateContent = ({ visible }) => {
   };
   return useObserver(() => {
     return (
-      <CreateLayout visible={visible}>
+      <CreateLayout
+        visible={visible}
+        footer={[
+          <Button
+            style={{ color: "#FFFFFF", background: "#8885a4" }}
+            variant="contained"
+            onClick={handleCreate}
+          >
+            등록하기
+          </Button>,
+          <Button onClick={handleCancle}>취소하기</Button>,
+        ]}
+      >
         <SelectLayout>
           <Select
             labelId="demo-simple-select-filled-label"
@@ -80,16 +96,6 @@ const CreateContent = ({ visible }) => {
             style={{ height: "500px" }}
           />
         </TextLayout>
-
-        <ButtonLayout>
-          <Button
-            style={{ color: "#FFFFFF", background: "#8885a4" }}
-            variant="contained"
-            onClick={handleCreate}
-          >
-            등록하기
-          </Button>
-        </ButtonLayout>
       </CreateLayout>
     );
   });

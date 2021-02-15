@@ -1,92 +1,107 @@
 import styled from "styled-components";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
-import React, { Component } from "react";
+import React, { Component, useEffect, useState, useCallback } from "react";
 import ListHeader from "./ListHeader";
 import { FaEye } from "react-icons/fa";
 import { FaRegThumbsUp } from "react-icons/fa";
-import { BsChatDots } from "react-icons/bs";
+import { BsChatDots, BsJustify } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
 import { observer, inject } from "mobx-react";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { useObserver } from "mobx-react";
 import useStores from "../hooks/useStores";
-
+import { Button, Input, Select } from "antd";
+const { Option } = Select;
+const { TextArea } = Input;
+/*
+TODO: 수정 / 취소
+*/
 const ListRead = () => {
   const { contentStore, UserStore } = useStores();
-
+  const [user, setUser] = useState();
+  const [modify, setModify] = useState(false);
+  useEffect(() => {
+    setUser(contentStore.getUserEmail());
+  }, []);
   const list = contentStore.getContentList();
-  const index = contentStore.getSelectList();
+  const index = contentStore.getClickContentIndex();
   const content = list[index];
+  console.log("content", content);
+  const handleModify = useCallback(() => {
+    setModify(true);
+  }, []);
+  const handleModifyClick = useCallback(() => {}, []);
+  const handleModifyCancel = useCallback(() => {
+    setModify(false);
+  }, []);
   return useObserver(() => {
     return (
       <PageLayout>
-        <CategoryLayout>
-          <span>토픽</span>
-        </CategoryLayout>
-        <TitleLayout>
-          <h1>{content.title}</h1>
-        </TitleLayout>
-        <UserLayout>
-          <span>{content.user_id}</span>
-        </UserLayout>
-        <TimeLayout>
-          <AiOutlineClockCircle></AiOutlineClockCircle>
-          <span>{content.created}</span>
-          <FaEye className="eye"></FaEye>
-          <span>{content.hit_count}</span>
-          <BsChatDots className="reply"></BsChatDots>
-          <span>{content.like_count}</span>
-        </TimeLayout>
-        <ContentsLayout>
-          <span>{content.content}</span>
-        </ContentsLayout>
+        {modify && (
+          <>
+            <CategoryLayout>
+              <Select
+                style={{ width: 120 }}
+                // onChange={handleChange}
+              >
+                {contentStore.topicList.map((topic) => {
+                  return <Option value={topic.id}>{topic.name}</Option>;
+                })}
+              </Select>
+            </CategoryLayout>
+            <TitleLayout>
+              <Input placeholder="제목을 쓰세요." />
+            </TitleLayout>
+
+            <ContentsLayout>
+              <TextArea rows={30} />
+            </ContentsLayout>
+            <SaveLayout>
+              <Button onClick={handleModifyClick}>저장</Button>
+              <Button onClick={handleModifyCancel}>취소</Button>
+            </SaveLayout>
+          </>
+        )}
+        {modify === false && (
+          <>
+            <CategoryLayout>
+              <span>토픽</span>
+            </CategoryLayout>
+            <TitleLayout>
+              <h1>{content.title}</h1>
+            </TitleLayout>
+            <UserLayout>
+              <span>{content.user_id}</span>
+            </UserLayout>
+            <TimeLayout>
+              <AiOutlineClockCircle></AiOutlineClockCircle>
+              <span>{content.created}</span>
+              <FaEye className="eye"></FaEye>
+              <span>{content.hit_count}</span>
+              <BsChatDots className="reply"></BsChatDots>
+              <span>{content.like_count}</span>
+              {user === content.user.email && (
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <ButtonComponent onClick={handleModify}>수정</ButtonComponent>
+                  <ButtonComponent>삭제</ButtonComponent>
+                </div>
+              )}
+            </TimeLayout>
+            <ContentsLayout>
+              <span>{content.content}</span>
+            </ContentsLayout>
+          </>
+        )}
       </PageLayout>
     );
   });
 };
-// @inject("topic")
-// @inject("currentTopic")
-// @inject("dataStore")
-// class ListRead extends Component {
-//   constructor(props) {
-//     super(props);
-//     const dataIndex = this.props.topic.getClickContentIndex();
-//     this.content = this.props.dataStore.dataList[dataIndex];
-//   }
-//   render() {
-//     const name = this.props.currentTopic.getCurrentTopic();
-//     const title = "안녕하세요";
-//     const userName = "티맥스스페이스";
-//     const time = "2시간";
-//     const view = "83";
-//     const replyCnt = "3";
-//     const contents = "퇴근하고 싶다";
-//     return (
-//       <PageLayout>
-//         <CategoryLayout>
-//           <span>토픽 {name}</span>
-//         </CategoryLayout>
-//         <TitleLayout>
-//           <h1>{this.content.title}</h1>
-//         </TitleLayout>
-//         <UserLayout>
-//           <span>{this.content.user_id}</span>
-//         </UserLayout>
-//         <TimeLayout>
-//           <AiOutlineClockCircle></AiOutlineClockCircle>
-//           <span>{this.content.created}</span>
-//           <FaEye className="eye"></FaEye>
-//           <span>{this.content.hit_count}</span>
-//           <BsChatDots className="reply"></BsChatDots>
-//           <span>{this.content.like_count}</span>
-//         </TimeLayout>
-//         <ContentsLayout>
-//           <span>{this.content.content}</span>
-//         </ContentsLayout>
-//       </PageLayout>
-//     );
-//   }
-// }
+
+const ButtonComponent = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const PageLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -110,6 +125,11 @@ const UserLayout = styled.div`
   span {
     font-size: 1px;
   }
+`;
+const SaveLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0px 1px 20px;
 `;
 const TimeLayout = styled.div`
   display: flex;

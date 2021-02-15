@@ -77,6 +77,13 @@ const contentStore = observable({
     }
     return false;
   },
+  async modifyContent(boarderId, queryObj) {
+    const response = await contentRepository.boardsUpdate(boarderId, queryObj);
+    if (response.data.msg === "success") {
+      return true;
+    }
+    return false;
+  },
   getTopicList() {
     return this.topicList;
   },
@@ -90,7 +97,7 @@ const contentStore = observable({
     const response = await contentRepository.boardsGet();
     if (response.data.msg === "success") {
       this.contentList = response.data.list;
-      return true;
+      return this.contentList;
     }
     return false;
   },

@@ -44,6 +44,9 @@ const TopLayout = () => {
   const handleTopicClick = (index) => {
     contentStore.setSelectMainTopic(index);
   };
+  const handleCancle = () => {
+    setWrite(false);
+  };
   return useObserver(() => {
     return (
       <MainLayout>
@@ -121,7 +124,7 @@ const TopLayout = () => {
               })
             : null}
         </ListLayout>
-        <CreateContent visible={write}></CreateContent>
+        <CreateContent visible={write} onCancle={handleCancle}></CreateContent>
       </MainLayout>
     );
   });
