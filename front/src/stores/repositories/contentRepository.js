@@ -1,9 +1,20 @@
-import axios from "axios";
+/** @format */
+
+import axios from 'axios';
 
 const contentRepository = {
     boardsGet: async () => {
         try {
-            const response = await axios.get("/boards");
+            const response = await axios.get('/boards');
+            return response;
+        } catch (error) {
+            throw Error(error);
+            return false;
+        }
+    },
+    boardGet: async (boarderId) => {
+        try {
+            const response = await axios.get(`/board/${boarderId}`);
             return response;
         } catch (error) {
             throw Error(error);
@@ -12,7 +23,7 @@ const contentRepository = {
     },
     boardsUpdate: async (boarderId, queryObj) => {
         try {
-            const response = await axios.put(`/boards/${boarderId}`, queryObj);
+            const response = await axios.put(`/board/${boarderId}`, queryObj);
             return response;
         } catch (error) {
             throw Error(error);
@@ -21,13 +32,12 @@ const contentRepository = {
     },
     topicListGet: async () => {
         try {
-            const response = await axios.get("/topics");
+            const response = await axios.get('/topics');
             return response;
         } catch (error) {
             throw Error(error);
             return false;
         }
-    }
-
-}
+    },
+};
 export default contentRepository;
