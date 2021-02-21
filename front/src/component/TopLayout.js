@@ -17,7 +17,6 @@ const TopLayout = () => {
     const [write, setWrite] = useState(false);
     const [input, setInput] = useState('');
     const history = useHistory();
-    console.log('history', history);
     useEffect(() => {
         contentStore.setContentList();
         contentStore.setTopicList();
@@ -29,8 +28,8 @@ const TopLayout = () => {
     const handleClick = useCallback((index) => {
         contentStore.setSelectList(index);
     }, []);
-    const handleTopicClick = useCallback((index) => {
-        contentStore.setSelectMainTopic(index);
+    const handleTopicClick = useCallback((name, index) => {
+        contentStore.setSelectMainTopic(`${name}_${index}`);
     }, []);
     const handleCancle = useCallback(() => {
         setWrite(false);
@@ -65,7 +64,7 @@ const TopLayout = () => {
                             <Link to='/list'>
                                 <TopicCircle
                                     onClick={() => {
-                                        handleTopicClick(index);
+                                        handleTopicClick(topic.name, index);
                                     }}>
                                     {topic.name}
                                 </TopicCircle>

@@ -12,14 +12,18 @@ import useStores from '../hooks/useStores';
 import { useObserver } from 'mobx-react';
 import ListComponent from './ListComponent';
 import { Tabs } from 'antd';
-
+/*
+TODO: 탭에서 defaultActiveKey 안됨 
+*/
 const { TabPane } = Tabs;
 const ListPage = () => {
     const { contentStore } = useStores();
     const [content, setContent] = useState([]);
     const [tabContent, setTabContent] = useState([]);
     const [topic, setTopic] = useState([]);
-    const [clickTopic, setClickTopic] = useState('');
+    const [clickTopic, setClickTopic] = useState(
+        contentStore.selectTopic.split('_')[0]
+    );
     //토픽에 애초에 본인이 선택한 토픽만 나오도록 해야함
     useEffect(() => {
         async function fetchContent() {
@@ -37,7 +41,7 @@ const ListPage = () => {
         return (
             <ListLayout>
                 <CategoryLayout>
-                    <Tabs defaultActiveKey='1' onChange={handleTabChange}>
+                    <Tabs defaultActiveKey='a_2' onChange={handleTabChange}>
                         {topic &&
                             topic.map((item, index) => (
                                 <TabPane
