@@ -12,6 +12,7 @@ import { Modal, Button, Input } from 'antd';
 import CreateContent from './CreateContent';
 import useStores from '../hooks/useStores';
 import { useHistory } from 'react-router-dom';
+import MainListComponent from './MainListComponent';
 const TopLayout = () => {
     const { contentStore } = useStores();
     const [write, setWrite] = useState(false);
@@ -26,7 +27,7 @@ const TopLayout = () => {
     }, []);
     const [open, setOpen] = useState(false);
     const handleClick = useCallback((index) => {
-        contentStore.setSelectList(index);
+        contentStore.setClickContentIndex(index);
     }, []);
     const handleTopicClick = useCallback((name, index) => {
         contentStore.setSelectMainTopic(`${name}_${index}`);
@@ -107,7 +108,10 @@ const TopLayout = () => {
                               return (
                                   <HotTopicListLayout>
                                       <Link to='/listRead'>
-                                          <div
+                                          <MainListComponent
+                                              list={list}
+                                              index={index}></MainListComponent>
+                                          {/* <div
                                               onClick={() => {
                                                   handleClick(index);
                                               }}>
@@ -117,7 +121,7 @@ const TopLayout = () => {
                                               <p className='topicTitle'>
                                                   {list.title}
                                               </p>
-                                          </div>
+                                          </div> */}
                                       </Link>
                                   </HotTopicListLayout>
                               );
