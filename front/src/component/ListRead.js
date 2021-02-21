@@ -39,10 +39,20 @@ const ListRead = () => {
         setModify(true);
     }, []);
     const handleModifyClick = useCallback(async () => {
-        const data = await contentStore.modifyContent(content.id, {
-            ...content,
-            inputs,
-        });
+        console.log('inputs :', inputs);
+        const obj = {
+            id: 1,
+            title: '아아아',
+            content: '내용',
+            topicId: 1,
+            likeCount: null,
+            hitCount: null,
+        };
+        //   {
+        //     ...content,
+        //     inputs,
+        // }
+        const data = await contentStore.modifyContent(content.id, obj);
     }, []);
     const handleModifyCancel = useCallback(() => {
         setModify(false);
@@ -110,19 +120,19 @@ const ListRead = () => {
                             <span>토픽</span>
                         </CategoryLayout>
                         <TitleLayout>
-                            <h1>{content.title}</h1>
+                            <h1>{content?.title}</h1>
                         </TitleLayout>
                         <UserLayout>
-                            <span>{content.user_id}</span>
+                            <span>{content?.user_id}</span>
                         </UserLayout>
                         <TimeLayout>
                             <AiOutlineClockCircle></AiOutlineClockCircle>
-                            <span>{content.created}</span>
+                            <span>{content?.created}</span>
                             <FaEye className='eye'></FaEye>
-                            <span>{content.hit_count}</span>
+                            <span>{content?.hit_count}</span>
                             <BsChatDots className='reply'></BsChatDots>
-                            <span>{content.like_count}</span>
-                            {user === content.user.email && (
+                            <span>{content?.like_count}</span>
+                            {user === content?.user.email && (
                                 <div
                                     style={{
                                         display: 'flex',
@@ -136,7 +146,7 @@ const ListRead = () => {
                             )}
                         </TimeLayout>
                         <ContentsLayout>
-                            <span>{content.content}</span>
+                            <span>{content?.content}</span>
                         </ContentsLayout>
                     </>
                 )}
