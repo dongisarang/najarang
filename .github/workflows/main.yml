@@ -26,6 +26,18 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ${{ secrets.WEB_PATH }} && git pull
-            npm install --no-optional
-            npm run build
+              SOURCE_DIR=~/apps/najarang/front
+              
+              echo "#### change directory to $SOURCE_DIR ####"
+              cd $SOURCE_DIR
+              
+              echo "#### git pull ####"
+              git pull
+              
+              echo "#### npm install ####"
+              npm install --no-optional
+              
+              echo "#### npm run build ####"
+              npm run build
+              
+              echo "#### [SUCCESS] DEPLOY REACT ####"
