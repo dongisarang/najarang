@@ -87,102 +87,19 @@ const KakaoSignUp = ({ history }) => {
       </MiddleLayout>{" "}
       <MiddleLayout>
         <div className="content">
-          <GoogleBtn>
-            <GoogleLogin
-              clientId="223281605678-qblodmohj92uq9ju7i1i4k624ui4u8hs.apps.googleusercontent.com"
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseFail}
-              cookiePolicy={"single_host_origin"}
-            />{" "}
-          </GoogleBtn>{" "}
+          <GoogleBtn
+            clientId="223281605678-qblodmohj92uq9ju7i1i4k624ui4u8hs.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseFail}
+            cookiePolicy={"single_host_origin"}
+          ></GoogleBtn>
           <h6> 구글로 인증하여 회원가입 </h6>{" "}
         </div>{" "}
       </MiddleLayout>{" "}
     </div>
   );
 };
-// class KakaoSignUp extends Component {
-//   // constructor(props) {
-//   //     super(props);
-//   //     this.state = {
-//   //         data: 'kakao'
-//   //     }
-//   // }
-
-//   responseKaKao = (res) => {
-//     this.setState({
-//       id: res.profile.id,
-//       provider: "kakao",
-//     });
-//     res.provider = "kakao";
-//     // fetch('http://localhost:3000/oauth')
-//     //     .then(function (response) {
-//     //         return response.json();
-//     //     })
-//     Kakao.Auth.login({
-//       success: (auth) => {
-//         console.log("success login");
-//         this.props.topic.setUserEmail(res.profile.kakao_account.email);
-//         // <Redirect to="/signup"></Redirect>;
-//         this.props.history.push("/signup");
-//       },
-//       fail: (err) => {
-//         console.log("login fail");
-//       },
-//     });
-//     this.props.topic.setUserEmail(res.profile.kakao_account.email);
-//     console.log("data: ", res, "  ", this.props.topic.getUserEmail());
-//   };
-
-//   responseFail = (err) => {
-//     //alert("아아아");
-//   };
-//   responseGoogle = (response) => {
-//     console.log(response);
-//     response.provider = "google";
-//     fetch("http://localhost:3000/oauth").then(function (response) {
-//       return response.json();
-//     });
-//     //여기서 access_token=XX&provider=kakao 이런식으로 처리해서 서버로 보내주기
-//   };
-//   render() {
-//     return (
-//       <div>
-//         <MainLayout>
-//           <h1> 로그인 방식을 선택해 주세요 </h1>
-//         </MainLayout>
-//         <MiddleLayout>
-//           <div className="content">
-//             <KaKaoBtn
-//               jsKey={"91e67ebb3e98ff0accfa0539dbe9698e"}
-//               onSuccess={this.responseKaKao}
-//               onFailure={this.responseFail}
-//               getProfile={true}
-//             >
-//               <p> 카카오로 회원가입 </p>
-//             </KaKaoBtn>
-//             <h6> 카카오로 인증하여 회원가입 </h6>
-//           </div>
-//         </MiddleLayout>
-//         <MiddleLayout>
-//           <div className="content">
-//             <GoogleBtn>
-//               <GoogleLogin
-//                 clientId="223281605678-qblodmohj92uq9ju7i1i4k624ui4u8hs.apps.googleusercontent.com"
-//                 buttonText="Login"
-//                 onSuccess={this.responseGoogle}
-//                 onFailure={this.responseFail}
-//                 cookiePolicy={"single_host_origin"}
-//               />
-//             </GoogleBtn>
-//             <h6> 구글로 인증하여 회원가입 </h6>
-//           </div>
-//         </MiddleLayout>
-//       </div>
-//     );
-//   }
-// }
 const MainLayout = styled.div`
   display: flex;
   justify-content: center;
@@ -220,28 +137,29 @@ const MiddleLayout = styled.div`
 //     } */
 // `;
 
-const GoogleBtn = styled.div`
-  padding: 0;
-  width: 190px;
-  height: 10px;
-  margin-left: 40px;
-`;
-const KaKaoBtn = styled(KaKaoLogin)`
-  padding: 0;
+const GoogleBtn = styled(GoogleLogin)`
   width: 190px;
   height: 30px;
-
-  line-height: 44px;
+  margin: 0rem 0rem 2rem 0rem;
+`;
+const KaKaoBtn = styled(KaKaoLogin)`
+  width: 190px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: 12px;
   font-size: 15px;
   font-weight: bold;
-
+  font-family: "Noto Sans C JK KR";
+  background-color: #fee500;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
   }
-  .p {
+  p {
     margin: 0 auto;
   }
 `;
